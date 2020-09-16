@@ -48,7 +48,7 @@
             "[concat('Microsoft.Automation/automationAccounts/', 'automationAccount1')]"
           ],
           "properties": {
-            "resourceId": "[resourceId('Microsoft.Automation/automationAccounts/', parameters('automationAccountName'))]"
+            "resourceId": "[resourceId('Microsoft.Automation/automationAccounts/', 'automationAccount1')]"
           }
         }        
     ],
