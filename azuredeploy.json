@@ -41,7 +41,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "location":{"value": "[resourceGroup().location]"}
+                    "location":{
+                        "value": "[parameters('rgLocation')]"
+                        }
                 }
             }
         }
