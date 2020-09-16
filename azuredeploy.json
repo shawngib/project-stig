@@ -47,7 +47,10 @@
                 "parameters": {
                     "location":{
                         "value": "[parameters('rgLocation')]"
-                        }
+                        },
+                    "name":{
+                        "value": "[parameters('rgName')]"
+                    }
                 }
             }
         }
