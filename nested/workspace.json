@@ -8,7 +8,8 @@
     },
     "functions": [],
     "variables": {
-        "workspaceName": "[concat(parameters('name'),'-', resourceGroup().location, 'WS')]"
+        "workspaceName": "[concat(parameters('name'),'-', resourceGroup().location, 'WS')]",
+        "automationAccountName": "automationAccount1"
     },
     "resources": [
         {
@@ -26,7 +27,7 @@
             }
         },
         {
-            "name": "automationAccount1",
+            "name": "[variables('automationAccountName')]",
             "type": "Microsoft.Automation/automationAccounts",
             "apiVersion": "2015-10-31",
             "location": "[resourceGroup().location]",
@@ -45,10 +46,10 @@
           "location": "[resourceGroup().location]",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
-            "[concat('Microsoft.Automation/automationAccounts/', 'automationAccount1')]"
+            "[concat('Microsoft.Automation/automationAccounts/', variables('automationAccountName'))]"
           ],
           "properties": {
-            "resourceId": "[resourceId('Microsoft.Automation/automationAccounts/', 'automationAccount1')]"
+            "resourceId": "[resourceId('Microsoft.Automation/automationAccounts/', variables('automationAccountName'))]"
           }
         }        
     ],
