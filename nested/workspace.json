@@ -8,7 +8,7 @@
     },
     "functions": [],
     "variables": {
-        "workspaceName": "[concat(parameters('name'),'-', parameters('location'), 'WS')]"
+        "workspaceName": "[concat(parameters('name'),'-', resourceGroup().location, 'WS')]"
     },
     "resources": [
         {
