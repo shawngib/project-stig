@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
-            "type": "string"
-        },
         "name" : {
             "type": "string"
         }
@@ -18,7 +15,7 @@
             "name": "[variables('workspaceName')]",
             "type": "Microsoft.OperationalInsights/workspaces",
             "apiVersion": "2015-11-01-preview",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "sku": {
                     "name": "Free"
@@ -32,7 +29,7 @@
             "name": "automationAccount1",
             "type": "Microsoft.Automation/automationAccounts",
             "apiVersion": "2015-10-31",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
             },
             "properties": {
@@ -40,6 +37,19 @@
                     "name": "Free"
                 }
             }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "type": "Microsoft.OperationalInsights/workspaces/linkedServices",
+          "name": "[concat(variables('workspaceName'), '/' , 'Automation')]",
+          "location": "[resourceGroup().location]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
+            "[concat('Microsoft.Automation/automationAccounts/', 'automationAccount1')]"
+          ],
+          "properties": {
+            "resourceId": "[resourceId('Microsoft.Automation/automationAccounts/', parameters('automationAccountName'))]"
+          }
         }        
     ],
     "outputs": {}
