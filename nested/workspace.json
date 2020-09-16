@@ -1,7 +1,11 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "location": {
+            "type": "string"
+        }
+    },
     "functions": [],
     "variables": {},
     "resources": [
@@ -9,7 +13,7 @@
             "name": "logAnalyticsWorkspace",
             "type": "Microsoft.OperationalInsights/workspaces",
             "apiVersion": "2015-11-01-preview",
-            "location": "usgovvirginia",
+            "location": "[parameters('location')]",
             "properties": {
                 "sku": {
                     "name": "Free"
@@ -23,7 +27,7 @@
             "name": "automationAccount1",
             "type": "Microsoft.Automation/automationAccounts",
             "apiVersion": "2015-10-31",
-            "location": "usgovvirginia",
+            "location": "[parameters('location')]",
             "tags": {
             },
             "properties": {
@@ -31,7 +35,7 @@
                     "name": "Free"
                 }
             }
-        }
+        },
         
     ],
     "outputs": {}

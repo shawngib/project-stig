@@ -29,6 +29,21 @@
                 "Note": "subscription level deployment"
             },
             "properties": {}
+        },
+        {
+            "name": "linkedDeployment1",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('workspaceUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location":{"value": "[resourceGroup().location]"}
+                }
+            }
         }
     
     ],
