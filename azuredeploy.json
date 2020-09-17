@@ -17,7 +17,8 @@
     },
     "functions": [],
     "variables": {
-        "workspaceUrl": "[uri(deployment().properties.templateLink.uri, 'nested/workspace.json')]"
+        "workspaceUrl": "[uri(deployment().properties.templateLink.uri, 'nested/workspace.json')]",
+        "managedIdentityUrl": "[uri(deployment().properties.templateLink.uri, 'nested/managedIdentity.json')]"
     },
     "resources": [
         {
@@ -50,8 +51,25 @@
                     }
                 }
             }
+        },
+        {
+            "name": "linkedDeployment2",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('managedIdentityUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "name":{
+                        "value": "[parameters('rgName')]"
+                    }
+                }
+            }
         }
-    
     ],
     "outputs": {}
 }

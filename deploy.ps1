@@ -2,7 +2,7 @@ $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredepl
 
 New-AzSubscriptionDeployment `
   -Name demoSubDeployment `
-  -Location usgovvirginia `
+  -Location eastus `
   -TemplateUri $url `
   -rgName TestSubdeploy `
-  -rgLocation usgovvirginia
+  -rgLocation eastus
