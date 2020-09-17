@@ -9,7 +9,8 @@
     },
     "functions": [],
     "variables": {
-        "identityName": "[concat(parameters('name'), '-identity')]"
+        "identityName": "[concat(parameters('name'), '-identity')]",
+        "bootstrapRoleAssignmentId": "[guid(concat(resourceGroup().id, 'contributor'))]"
     },
     "resources": [
         {
@@ -17,6 +18,20 @@
             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
             "apiVersion": "2018-11-30",
             "location": "[resourceGroup().location]"
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[variables('bootstrapRoleAssignmentId')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')), '2018-11-30').principalId]",
+                "scope": "[resourceGroup().id]",
+                "principalType": "ServicePrincipal"
+            }
         }
     ],
     "outputs": {}
