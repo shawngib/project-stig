@@ -11,7 +11,7 @@
     },
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
-      "scriptsUrl": "[concat(parameters('baseUrl'),'/scripts')]",
+      "scriptsUrl": "[replace(concat(parameters('baseUrl')),'azuredeploy.json/','')]",
       "imageTemplateName": "[concat(parameters('name'),'-image-' ,substring(uniqueString(resourceGroup().id),0,6))]"
     },
     "resources": [
@@ -52,7 +52,7 @@
             {
               "type": "PowerShell",
               "name": "CreateBuildPath",
-              "scriptUri": "[concat(variables('scriptsUrl'),'/scripts/setLgpo.ps1')]"
+              "scriptUri": "[concat(variables('scriptsUrl'),'/setLgpo.ps1')]"
             },            
             {
               "type": "WindowsUpdate",
