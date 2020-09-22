@@ -12,7 +12,7 @@
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
       "scriptsUrl": "[concat(parameters('baseUrl'),'/scripts')]",
-      "imageTemplateName": "[concat(parameters('name'),'-imageTemplate')]"
+      "imageTemplateName": "[concat(parameters('name'),'-image-' ,substring(uniqueString(resourceGroup().id),0,6))]"
     },
     "resources": [
       {
