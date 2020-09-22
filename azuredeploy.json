@@ -18,7 +18,9 @@
     "functions": [],
     "variables": {
         "workspaceUrl": "[uri(deployment().properties.templateLink.uri, 'nested/workspace.json')]",
-        "managedIdentityUrl": "[uri(deployment().properties.templateLink.uri, 'nested/managedIdentity.json')]"
+        "managedIdentityUrl": "[uri(deployment().properties.templateLink.uri, 'nested/managedIdentity.json')]",
+        "imageGalleryUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageGallery.json')]",
+        "imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageTemplate.json')]"
     },
     "resources": [
         {
@@ -67,6 +69,32 @@
                     "name":{
                         "value": "[parameters('rgName')]"
                     }
+                }
+            }
+        },
+        {
+            "name": "linkedDeployment3",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('imageGalleryUrl')]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
+            "name": "linkedDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('imageTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
                 }
             }
         }
