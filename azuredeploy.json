@@ -108,5 +108,10 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "baseUri": {
+            "type": "string",
+            "value": "[uri(deployment().properties.templateLink.uri, 'scripts')]"
+        }
+    }
 }
