@@ -92,7 +92,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "properties": {
-                "mode": "Complete",
+                "mode": "Incremental",
                 "templateLink": {
                     "uri": "[variables('imageTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
