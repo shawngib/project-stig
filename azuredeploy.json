@@ -95,6 +95,14 @@
                 "templateLink": {
                     "uri": "[variables('imageTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "name":{
+                        "value": "[parameters('rgName')]"
+                    },
+                     "baseUrl":{
+                        "value": "[uri(deployment().properties.templateLink.uri, '')]"
+                    }
                 }
             }
         }

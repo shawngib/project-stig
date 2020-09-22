@@ -5,8 +5,6 @@
 # az feature show --namespace Microsoft.VirtualMachineImages --name VirtualMachineTemplatePreview | grep state
 # Get-AzProviderFeature -FeatureName VirtualMachineTemplatePreview -ProviderNamespace Microsoft.VirtualMachineImages
 
-az provider show -n Microsoft.VirtualMachineImages | grep registrationState
-
 $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
 
 New-AzSubscriptionDeployment `
