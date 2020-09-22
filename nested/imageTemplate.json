@@ -52,7 +52,7 @@
             {
               "type": "PowerShell",
               "name": "CreateBuildPath",
-              "scriptUri": "[concat(variables('scriptsUrl'),'/acripts/setLgpo.ps1')]"
+              "scriptUri": "[concat(variables('scriptsUrl'),'/scripts/setLgpo.ps1')]"
             },            
             {
               "type": "WindowsUpdate",
