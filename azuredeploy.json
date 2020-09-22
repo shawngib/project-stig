@@ -20,7 +20,8 @@
         "workspaceUrl": "[uri(deployment().properties.templateLink.uri, 'nested/workspace.json')]",
         "managedIdentityUrl": "[uri(deployment().properties.templateLink.uri, 'nested/managedIdentity.json')]",
         "imageGalleryUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageGallery.json')]",
-        "imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageTemplate.json')]"
+        "imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageTemplate.json')]",
+        "baseUrl": "[uri(deployment().properties.templateLink.uri, '')]"
     },
     "resources": [
         {
@@ -86,7 +87,7 @@
             }
         },
         {
-            "name": "linkedDeployment",
+            "name": "linkedDeployment4",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
@@ -101,7 +102,7 @@
                         "value": "[parameters('rgName')]"
                     },
                      "baseUrl":{
-                        "value": "[uri(deployment().properties.templateLink.uri, '')]"
+                        "value": "[variables('baseUrl')]"
                     }
                 }
             }
