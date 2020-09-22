@@ -4,14 +4,11 @@
     "parameters": {
       "name": {
         "type": "string"
-      },
-      "baseUrl": {
-        "type": "string"
       }
     },
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
-      "scriptsUrl": "[concat(parameters('baseUrl'),'scripts.json')]",
+      "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setLgpo.ps1",
       "imageTemplateName": "[concat(parameters('name'),'-image-' ,substring(uniqueString(resourceGroup().id),0,6))]"
     },
     "resources": [
@@ -52,7 +49,7 @@
             {
               "type": "PowerShell",
               "name": "CreateBuildPath",
-              "scriptUri": "[concat(variables('scriptsUrl'),'/setLgpo.ps1')]"
+              "scriptUri": "[variables('scriptsUrl')]"
             },            
             {
               "type": "WindowsUpdate",

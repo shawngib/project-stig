@@ -100,18 +100,10 @@
                 "parameters": {
                     "name":{
                         "value": "[parameters('rgName')]"
-                    },
-                     "baseUrl":{
-                        "value": "[variables('baseUrl')]"
                     }
                 }
             }
         }
     ],
-    "outputs": {
-        "baseUri": {
-            "type": "string",
-            "value": "[uri(deployment().properties.templateLink.uri, 'scripts')]"
-        }
-    }
+    "outputs": {}
 }
