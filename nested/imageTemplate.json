@@ -11,7 +11,7 @@
     },
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
-      "scriptsUrl": "[replace(concat(parameters('baseUrl')),'azuredeploy.json/','')]",
+      "scriptsUrl": "[concat(parameters('baseUrl'),'scripts.json')]",
       "imageTemplateName": "[concat(parameters('name'),'-image-' ,substring(uniqueString(resourceGroup().id),0,6))]"
     },
     "resources": [
