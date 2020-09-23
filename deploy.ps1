@@ -14,4 +14,5 @@ New-AzSubscriptionDeployment `
   -Location eastus `
   -TemplateUri $url `
   -rgName TestSubdeploy `
-  -rgLocation eastus
+  -rgLocation eastus `
+  -Verbose
