@@ -1,0 +1,85 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "galleryName": {
+            "type": "string",
+            "defaultValue": "testsubimagebuilder"
+        },
+        "imageDefinitionName": {
+            "type": "string",
+            "defaultValue": "Win10w365_STIG"
+        },
+        "osType": {
+            "type": "string",
+            "defaultValue": "Windows"
+        },
+        "osState": {
+            "type": "string",
+            "defaultValue": "Generalized"
+        },
+        "publisher": {
+            "type": "string",
+            "defaultValue": "AzureGlobalDesktop"
+        },
+        "offer": {
+            "type": "string",
+            "defaultValue": "office-365"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "20h1-evd-o365pp-stig"
+        },
+        "minRecommendedvCPUs": {
+            "type": "int",
+            "defaultValue": "2"
+        },
+        "maxRecommendedvCPUs": {
+            "type": "int",
+            "defaultValue": "8"
+        },
+        "minRecommendedMemory": {
+            "type": "int",
+            "defaultValue": "36"
+        },
+        "maxRecommendedMemory": {
+            "type": "int",
+            "defaultValue": "48"
+        },
+        "hyperVGeneration": {
+            "type": "string",
+            "defaultValue": "V1"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/galleries/images",
+            "name": "[concat(parameters('galleryName'), '/', parameters('imageDefinitionName'))]",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "osType": "[parameters('osType')]",
+                "osState": "[parameters('osState')]",
+                "identifier": {
+                    "publisher": "[parameters('publisher')]",
+                    "offer": "[parameters('offer')]",
+                    "sku": "[parameters('sku')]"
+                },
+                "recommended": {
+                    "vCPUs": {
+                        "min": "[parameters('minRecommendedvCPUs')]",
+                        "max": "[parameters('maxRecommendedvCPUs')]"
+                    },
+                    "memory": {
+                        "min": "[parameters('minRecommendedMemory')]",
+                        "max": "[parameters('maxRecommendedMemory')]"
+                    }
+                },
+                "hyperVGeneration": "[parameters('hyperVGeneration')]"
+            },
+            "tags": {}
+        }
+    ],
+    "outputs": {}
+}

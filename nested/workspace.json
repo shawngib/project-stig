@@ -16,7 +16,7 @@
             "name": "[variables('workspaceName')]",
             "type": "Microsoft.OperationalInsights/workspaces",
             "apiVersion": "2015-11-01-preview",
-            "location": "[resourceGroup().location]",
+            "location": "eastus",
             "properties": {
                 "sku": {
                     "name": "Free"
@@ -30,7 +30,7 @@
             "name": "[variables('automationAccountName')]",
             "type": "Microsoft.Automation/automationAccounts",
             "apiVersion": "2015-10-31",
-            "location": "[resourceGroup().location]",
+            "location": "eastus2",
             "tags": {
             },
             "properties": {
@@ -43,7 +43,7 @@
           "apiVersion": "2015-11-01-preview",
           "type": "Microsoft.OperationalInsights/workspaces/linkedServices",
           "name": "[concat(variables('workspaceName'), '/' , 'Automation')]",
-          "location": "[resourceGroup().location]",
+          "location": "eastus",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
             "[concat('Microsoft.Automation/automationAccounts/', variables('automationAccountName'))]"
