@@ -88,10 +88,29 @@
             }
         },
         {
+            "name": "linkedDeployment4",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "linkedDeployment3"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('imageDefinitionUrl')]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
             "name": "linkedDeployment5",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "linkedDeployment4"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {

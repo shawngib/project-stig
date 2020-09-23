@@ -15,4 +15,4 @@ New-AzSubscriptionDeployment `
   -TemplateUri $url `
   -rgName TestSubdeploy `
   -rgLocation eastus `
-  -Verbose
+  -DeploymentDebugLogLevel All
