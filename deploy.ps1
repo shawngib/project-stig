@@ -36,4 +36,6 @@ if ($decision -eq 0) {
 }
 
 #az image builder list
+#az image builder delete --name TestSubdeploy-image-ul2qw6 --resource-group TestSubdeploy
+
 #$resTemplateId = Get-AzResource -ResourceName $imageTemplateName -ResourceGroupName $imageResourceGroup -ResourceType Microsoft.VirtualMachineImages/imageTemplates -ApiVersion "2019-05-01-preview"

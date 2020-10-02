@@ -9,7 +9,7 @@
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
       "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setLgpo.ps1",
-      "imageTemplateName": "[concat(parameters('name'),'-image-' ,substring(uniqueString(resourceGroup().id),0,6))]"
+      "imageTemplateName": "'WindowsServer_2019-Datacenter','-STIG-image')]"
     },
     "resources": [
       {
@@ -64,11 +64,11 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "/subscriptions/bf031e99-23ef-4cc3-b5a9-b2761eb6126d/resourceGroups/TestSubdeploy/providers/Microsoft.Compute/galleries/testsubimagebuilder/images/Win10w365_STIG",
-              "runOutputName": "Win10w365Stig",
+              "galleryImageId": "/subscriptions/bf031e99-23ef-4cc3-b5a9-b2761eb6126d/resourceGroups/TestSubdeploy/providers/Microsoft.Compute/galleries/testsubimagebuilder/images/WindowsDataCEnter2019_STIG",
+              "runOutputName": "WindowsDataCEnter2019_STIG",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
-                "baseosimg": "windowsclient"
+                "baseosimg": "WindowsServer"
               },
               "replicationRegions": [
                 "eastus",
