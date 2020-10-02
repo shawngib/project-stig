@@ -62,6 +62,9 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -80,6 +83,9 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {

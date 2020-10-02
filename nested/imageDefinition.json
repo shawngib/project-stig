@@ -52,21 +52,21 @@
                 "count": "[length(parameters('definitions'))]"
             },
             "properties": {
-                "osType": "[parameters('definitions').osType[copyIndex()]]",
-                "osState": "[parameters('definitions').osState[copyIndex()]]",
+                "osType": "[parameters('definitions')[copyIndex()].osType]",
+                "osState": "[parameters('definitions')[copyIndex()].osState]",
                 "identifier": {
-                    "publisher": "[parameters('definitions').publisher[copyIndex()]]",
-                    "offer": "[parameters('definitions').offer[copyIndex()]]",
-                    "sku": "[parameters('definitions').sku[copyIndex()]]"
+                    "publisher": "[parameters('definitions')[copyIndex()].publisher]",
+                    "offer": "[parameters('definitions')[copyIndex()].offer]",
+                    "sku": "[parameters('definitions')[copyIndex()].sku]"
                 },
                 "recommended": {
                     "vCPUs": {
-                        "min": "[parameters('definitions').minRecommendedvCPUs[copyIndex()]]",
-                        "max": "[parameters('definitions').maxRecommendedvCPUs[copyIndex()]]"
+                        "min": "[parameters('definitions')[copyIndex()].minRecommendedvCPUs]",
+                        "max": "[parameters('definitions')[copyIndex()].maxRecommendedvCPUs]"
                     },
                     "memory": {
-                        "min": "[parameters('definitions').minRecommendedMemory[copyIndex()]]",
-                        "max": "[parameters('definitions').maxRecommendedMemory[copyIndex()]]"
+                        "min": "[parameters('definitions')[copyIndex()].minRecommendedMemory]",
+                        "max": "[parameters('definitions')[copyIndex()].maxRecommendedMemory]"
                     }
                 },
                 "hyperVGeneration": "[parameters('hyperVGeneration')]"
