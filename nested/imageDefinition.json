@@ -26,6 +26,7 @@
                     "sku": "2019-Datacenter",
                     "minRecommendedvCPUs": "2",
                     "maxRecommendedvCPUs": "8",
+                    "minRecommendedMemory": "32",
                     "maxRecommendedMemory": "48"
                 }
             ]
