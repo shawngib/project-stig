@@ -9,7 +9,7 @@
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
       "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setLgpo.ps1",
-      "imageTemplateName": "'WindowsServer_2019-Datacenter','-STIG-image')]"
+      "imageTemplateName": "WindowsServer2019-STIG-image"
     },
     "resources": [
       {
