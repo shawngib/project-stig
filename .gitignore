@@ -1,0 +1,9 @@
+# ignore files that maybe temp files
+*~
+
+# ignore files in following directories
+PowerStigTemp/
+
+# ignore temporary VM deploy test scripts
+testDeployVm.ps1
+testDeployVm2.ps1

@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "name": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "identityName": "[concat(parameters('name'), '-identity')]",
+      "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setLgpo.ps1",
+      "imageTemplateName": "[concat(parameters('name'),'-image-' ,substring(uniqueString(resourceGroup().id),0,6))]"
+    },
+    "resources": [
+      {
+        "name": "[variables('imageTemplateName')]",
+        "type": "Microsoft.VirtualMachineImages/imageTemplates",
+        "apiVersion": "2020-02-14",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+          
+        ],
+        "tags": {
+          "imagebuilderTemplate": "AzureImageBuilderSIG",
+          "userIdentity": "enabled"
+        },
+        "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": {
+            "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',variables('identityName'))]": {
+              
+            }
+          }
+        },
+        "properties": {
+          "buildTimeoutInMinutes": 100,
+          "vmProfile": {
+            "vmSize": "Standard_D1_v2",
+            "osDiskSizeGB": 127
+          },
+          "source": {
+            "type": "PlatformImage",
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2019-Datacenter",
+            "version": "latest"
+          },
+          "customize": [
+            {
+              "type": "PowerShell",
+              "name": "CreateBuildPath",
+              "scriptUri": "[variables('scriptsUrl')]"
+            },            
+            {
+              "type": "WindowsUpdate",
+              "searchCriteria": "IsInstalled=0",
+              "filters": [
+                "exclude:$_.Title -like '*Preview*'",
+                "include:$true"
+              ],
+              "updateLimit": 40
+            }
+          ],
+          "distribute": [
+            {
+              "type": "SharedImage",
+              "galleryImageId": "/subscriptions/bf031e99-23ef-4cc3-b5a9-b2761eb6126d/resourceGroups/TestSubdeploy/providers/Microsoft.Compute/galleries/testsubimagebuilder/images/Win10w365_STIG",
+              "runOutputName": "Win10w365Stig",
+              "artifactTags": {
+                "source": "azureVmImageBuilder",
+                "baseosimg": "windowsclient"
+              },
+              "replicationRegions": [
+                "eastus",
+                "eastus2"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }

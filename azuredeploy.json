@@ -21,7 +21,8 @@
         "managedIdentityUrl": "[uri(deployment().properties.templateLink.uri, 'nested/managedIdentity.json')]",
         "imageGalleryUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageGallery.json')]",
         "imageDefinitionUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageDefinition.json')]",
-        "imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageTemplate.json')]",
+        "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
+        "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
         "baseUrl": "[uri(deployment().properties.templateLink.uri, '')]"
     },
     "resources": [
@@ -36,7 +37,7 @@
             "properties": {}
         },
         {
-            "name": "linkedDeployment1",
+            "name": "workspaceDeploy",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
@@ -75,7 +76,7 @@
             }
         },
         {
-            "name": "linkedDeployment3",
+            "name": "imageGalleryDeploy",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
@@ -88,12 +89,12 @@
             }
         },
         {
-            "name": "linkedDeployment4",
+            "name": "imageDefinitionsDeploy",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "linkedDeployment3"
+                "imageGalleryDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -104,17 +105,38 @@
             }
         },
         {
-            "name": "linkedDeployment5",
+            "name": "windows10STIGtemplate",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "linkedDeployment4"
+                "imageDefinitionsDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('imageTemplateUrl')]",
+                    "uri": "[variables('win10mageTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "name":{
+                        "value": "[parameters('rgName')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "windows2019STIGtemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "imageDefinitionsDeploy"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('srv2019imageTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {

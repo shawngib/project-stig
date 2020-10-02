@@ -2,49 +2,37 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "definitions": {
+        "type": "array",
+        "defaultValue":
+            [
+                {
+                    "imageDefinitionName": "Win10w365_STIG",
+                    "osType": "Windows",
+                    "osState": "Generalized",
+                    "publisher": "AzureGlobalDesktop",
+                    "offer": "office-365",
+                    "sku": "20h1-evd-o365pp-stig",
+                    "minRecommendedvCPUs": "2",
+                    "maxRecommendedvCPUs": "8",
+                    "maxRecommendedMemory": "48"
+                },
+                {
+                    "imageDefinitionName": "Win2019_STIG",
+                    "osType": "Windows",
+                    "osState": "Generalized",
+                    "publisher": "MicrosoftWindowsServer",
+                    "offer": "WindowsServer",
+                    "sku": "2019-Datacenter",
+                    "minRecommendedvCPUs": "2",
+                    "maxRecommendedvCPUs": "8",
+                    "maxRecommendedMemory": "48"
+                }
+            ]
+        },
         "galleryName": {
             "type": "string",
             "defaultValue": "testsubimagebuilder"
-        },
-        "imageDefinitionName": {
-            "type": "string",
-            "defaultValue": "Win10w365_STIG"
-        },
-        "osType": {
-            "type": "string",
-            "defaultValue": "Windows"
-        },
-        "osState": {
-            "type": "string",
-            "defaultValue": "Generalized"
-        },
-        "publisher": {
-            "type": "string",
-            "defaultValue": "AzureGlobalDesktop"
-        },
-        "offer": {
-            "type": "string",
-            "defaultValue": "office-365"
-        },
-        "sku": {
-            "type": "string",
-            "defaultValue": "20h1-evd-o365pp-stig"
-        },
-        "minRecommendedvCPUs": {
-            "type": "int",
-            "defaultValue": "2"
-        },
-        "maxRecommendedvCPUs": {
-            "type": "int",
-            "defaultValue": "8"
-        },
-        "minRecommendedMemory": {
-            "type": "int",
-            "defaultValue": "36"
-        },
-        "maxRecommendedMemory": {
-            "type": "int",
-            "defaultValue": "48"
         },
         "hyperVGeneration": {
             "type": "string",
@@ -55,25 +43,30 @@
     "resources": [
         {
             "type": "Microsoft.Compute/galleries/images",
-            "name": "[concat(parameters('galleryName'), '/', parameters('imageDefinitionName'))]",
+            "name": "[concat(parameters('galleryName'), '/', parameters('definitions').imageDefinitionName)]",
             "apiVersion": "2019-07-01",
             "location": "[resourceGroup().location]",
+            "copy":
+            {
+                "name": "Image Definition Copy",
+                "count": "[length(parameters('definitions'))]"
+            },
             "properties": {
-                "osType": "[parameters('osType')]",
-                "osState": "[parameters('osState')]",
+                "osType": "[parameters('definitions').osType]",
+                "osState": "[parameters('definitions').osState]",
                 "identifier": {
-                    "publisher": "[parameters('publisher')]",
-                    "offer": "[parameters('offer')]",
-                    "sku": "[parameters('sku')]"
+                    "publisher": "[parameters('definitions').publisher]",
+                    "offer": "[parameters('definitions').offer]",
+                    "sku": "[parameters('definitions').sku]"
                 },
                 "recommended": {
                     "vCPUs": {
-                        "min": "[parameters('minRecommendedvCPUs')]",
-                        "max": "[parameters('maxRecommendedvCPUs')]"
+                        "min": "[parameters('definitions').minRecommendedvCPUs]",
+                        "max": "[parameters('definitions').maxRecommendedvCPUs]"
                     },
                     "memory": {
-                        "min": "[parameters('minRecommendedMemory')]",
-                        "max": "[parameters('maxRecommendedMemory')]"
+                        "min": "[parameters('definitions').minRecommendedMemory]",
+                        "max": "[parameters('definitions').maxRecommendedMemory]"
                     }
                 },
                 "hyperVGeneration": "[parameters('hyperVGeneration')]"
