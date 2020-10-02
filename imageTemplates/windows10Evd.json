@@ -9,7 +9,7 @@
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
       "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setLgpo.ps1",
-      "imageTemplateName": "[concat(parameters('name'),'-image-' ,substring(uniqueString(resourceGroup().id),0,6))]"
+      "imageTemplateName": "Win10w365-STIG-image"
     },
     "resources": [
       {
