@@ -43,7 +43,7 @@
     "resources": [
         {
             "type": "Microsoft.Compute/galleries/images",
-            "name": "[concat(parameters('galleryName'), '/', parameters('definitions').imageDefinitionName)[copyIndex()]]",
+            "name": "[concat(parameters('galleryName'), '/', parameters('definitions').imageDefinitionName[copyIndex()])]",
             "apiVersion": "2019-07-01",
             "location": "[resourceGroup().location]",
             "copy":
@@ -52,21 +52,21 @@
                 "count": "[length(parameters('definitions'))]"
             },
             "properties": {
-                "osType": "[parameters('definitions').osType]",
-                "osState": "[parameters('definitions').osState]",
+                "osType": "[parameters('definitions').osType[copyIndex()]]",
+                "osState": "[parameters('definitions').osState[copyIndex()]]",
                 "identifier": {
-                    "publisher": "[parameters('definitions').publisher]",
-                    "offer": "[parameters('definitions').offer]",
-                    "sku": "[parameters('definitions').sku]"
+                    "publisher": "[parameters('definitions').publisher[copyIndex()]]",
+                    "offer": "[parameters('definitions').offer[copyIndex()]]",
+                    "sku": "[parameters('definitions').sku[copyIndex()]]"
                 },
                 "recommended": {
                     "vCPUs": {
-                        "min": "[parameters('definitions').minRecommendedvCPUs]",
-                        "max": "[parameters('definitions').maxRecommendedvCPUs]"
+                        "min": "[parameters('definitions').minRecommendedvCPUs[copyIndex()]]",
+                        "max": "[parameters('definitions').maxRecommendedvCPUs[copyIndex()]]"
                     },
                     "memory": {
-                        "min": "[parameters('definitions').minRecommendedMemory]",
-                        "max": "[parameters('definitions').maxRecommendedMemory]"
+                        "min": "[parameters('definitions').minRecommendedMemory[copyIndex()]]",
+                        "max": "[parameters('definitions').maxRecommendedMemory[copyIndex()]]"
                     }
                 },
                 "hyperVGeneration": "[parameters('hyperVGeneration')]"
