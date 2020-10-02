@@ -43,7 +43,7 @@
     "resources": [
         {
             "type": "Microsoft.Compute/galleries/images",
-            "name": "[concat(parameters('galleryName'), '/', parameters('definitions').imageDefinitionName[copyIndex()])]",
+            "name": "[concat(parameters('galleryName'), '/', parameters('definitions')[copyIndex()].imageDefinitionName)]",
             "apiVersion": "2019-07-01",
             "location": "[resourceGroup().location]",
             "copy":
