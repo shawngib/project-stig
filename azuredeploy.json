@@ -58,7 +58,7 @@
             }
         },
         {
-            "name": "linkedDeployment2",
+            "name": "managedIdentityDeploy",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
@@ -116,7 +116,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageDefinitionsDeploy"
+                "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -137,7 +137,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageDefinitionsDeploy"
+                "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
