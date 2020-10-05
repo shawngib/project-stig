@@ -1,6 +1,14 @@
 # Creating a logging function to enter steps in the process are logged
 $path = "c:\imageBuilder"
 $logFile = "$path\setLgpoLog.txt"
+
+# Using PowerShell New-Item asks permission, these command do not.
+mkdir -Path $path
+cd -Path $path
+
+function psudo ([string]$cmd = "echo Hello!") {
+    Start-Process -FilePath "powershell" -Verb RunAs -ArgumentList "-NoExit", $cmd
+}
 function LogMessage
 {
     param([string]$message)
@@ -14,17 +22,6 @@ $benchmarks = @("Windows 10","Windows Firewall","Office 2019-Office 365 Pro Plus
 $stigGpoUrl = "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/"
 $file = "U_STIG_GPO_Package_July_2020.zip"
 $lgpoUrl = "https://download.microsoft.com/download/8/5/C/85C25433-A1B0-4FFA-9429-7E023E7DA8D8/LGPO.zip"
-
-# Using PowerShell New-Item asks permission, these command do not.
-mkdir -Path $path
-cd -Path $path
-
-# Back up existing GPO
-LogMessage -message "Backing up group policy."
-mkdir -Path "gpo_backup"
-$cmd = ".\LGPO.exe" 
-$prm = "/b", "$path\gpo_backup\"
-& $cmd $prm
 
 # Get current GPO from web site and extract.
 # TODO: Extract only required folders or files
@@ -44,4 +41,28 @@ LogMessage -message "Cleaning up"
 $zip.Dispose() # Need to dispose to release locks allow delete ;)
 del lgpo.zip # cleanup
 
-Get-Content -Path $path + "gpo"
+# Back up existing GPO
+LogMessage -message "Backing up group policy."
+mkdir -Path "gpo_backup"
+$cmd = ".\LGPO.exe" 
+$prm = "/b", "$path\gpo_backup\"
+LogMessage -message start-process $cmd $prm
+start-process $cmd $prm -Verb runas
+#Get-WmiObject Win32_useraccount | Where-Object {$_.SID -like '*-500'} | Select Name, Disabled
+#Get-Content -Path $path + "gpo"
+
+LogMessage -message "Loading group policy."
+foreach($benchmark in $benchmarks){
+   $dir = Get-ChildItem "c:\imageBuilder\gpo" -Filter "*$benchmark*" -Recurse -Directory 
+   $prm = "/g", "$dir\GPOs"
+   #start-process $cmd $prm -Verb runas
+}
+
+LogMessage -message "Errors generated from Script: `n ********************************************"
+
+if($Error) {
+    foreach($errors in $Error)
+    {
+        LogMessage -message $error
+    }
+}
