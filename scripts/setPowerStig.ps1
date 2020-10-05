@@ -1,7 +1,9 @@
 # Install/Import PowerStig
-Install-Module -Name PowerStig -force
+(Get-Module PowerStig -ListAvailable).RequiredModules | % {
+    $PSItem | Install-Module -Force
+ }
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force # Windows 10 only
- Import-Module PowerStig -Force
+Import-Module PowerStig -Force
 
 # Enable WSMan / WinRm
 Test-WSMan
