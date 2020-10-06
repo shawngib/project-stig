@@ -7,7 +7,7 @@
         "defaultValue":
             [
                 {
-                    "imageDefinitionName": "Win10w365_STIG",
+                    "imageDefinitionName": "Win10WVDw365_STIG",
                     "osType": "Windows",
                     "osState": "Generalized",
                     "publisher": "AzureGlobalDesktop",
