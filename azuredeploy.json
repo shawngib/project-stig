@@ -23,7 +23,8 @@
         "imageDefinitionUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageDefinition.json')]",
         "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
         "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
-        "baseUrl": "[uri(deployment().properties.templateLink.uri, '')]"
+        "win10MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/windows10/localhost.mof')]",
+        "srv2019MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/windows2019/localhost.mof')]"
     },
     "resources": [
         {
@@ -127,6 +128,9 @@
                 "parameters": {
                     "name":{
                         "value": "[parameters('rgName')]"
+                    },
+                    "mofUrl":{
+                        "value": "[variables('win10MofUrl')]"
                     }
                 }
             }
@@ -148,6 +152,9 @@
                 "parameters": {
                     "name":{
                         "value": "[parameters('rgName')]"
+                    },
+                    "mofUrl":{
+                        "value": "[variables('srv2019MofUrl')]"
                     }
                 }
             }

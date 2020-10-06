@@ -54,7 +54,7 @@ start-process $cmd $prm -Verb runas
 LogMessage -message "Loading group policy."
 foreach($benchmark in $benchmarks){
    $dir = Get-ChildItem "c:\imageBuilder\gpo" -Filter "*$benchmark*" -Recurse -Directory 
-   $prm = "/g", "$dir\GPOs"
+ #  $prm = "/g", "$dir\GPOs"
    #start-process $cmd $prm -Verb runas
 }
 

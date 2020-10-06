@@ -25,12 +25,18 @@ $choices  = '&Yes', '&No'
 $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
 if ($decision -eq 0) {
     Write-Host 'Running create image action.' -ForegroundColor Green
-#    Invoke-AzResourceAction `
-#      -ResourceName 'TestSubdeploy-image-ul2qw6' ` # Need to manually set this TODO: fix, answer no for now
-#      -ResourceGroupName 'TestSubdeploy' `
-#      -ResourceType Microsoft.VirtualMachineImages/imageTemplates `
-#      -ApiVersion "2020-02-14" `
-#      -Action Run
+    Invoke-AzResourceAction `
+      -ResourceName 'Win10w365Stig' ` # Need to manually set this TODO: fix, answer no for now
+      -ResourceGroupName $imageResourceGroup `
+      -ResourceType Microsoft.VirtualMachineImages/imageTemplates `
+      -ApiVersion "2020-02-14" `
+      -Action Run
+    Invoke-AzResourceAction `
+      -ResourceName 'Win2019_STIG' ` # Need to manually set this TODO: fix, answer no for now
+      -ResourceGroupName $imageResourceGroup `
+      -ResourceType Microsoft.VirtualMachineImages/imageTemplates `
+      -ApiVersion "2020-02-14" `
+      -Action Run
 } else {
     Write-Host 'Skipping create image action.' -ForegroundColor Red
 }

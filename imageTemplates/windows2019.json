@@ -4,11 +4,14 @@
     "parameters": {
       "name": {
         "type": "string"
+      },
+      "mofUrl":{
+          "type": "string"
       }
     },
     "variables": {
       "identityName": "[concat(parameters('name'), '-identity')]",
-      "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setLgpo.ps1",
+      "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
       "imageTemplateName": "Win2019_STIG"
     },
     "resources": [
@@ -47,8 +50,15 @@
           },
           "customize": [
             {
+              "type": "File",
+              "name": "mofFileDownload",
+              "sourceUri": "[parameters('mofUrl')]",
+              "destination": "c:\\localhost.mof"
+            },
+            {
               "type": "PowerShell",
               "name": "CreateBuildPath",
+              "runElevated": "true",
               "scriptUri": "[variables('scriptsUrl')]"
             },            
             {
@@ -64,7 +74,7 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "/subscriptions/bf031e99-23ef-4cc3-b5a9-b2761eb6126d/resourceGroups/TestSubdeploy/providers/Microsoft.Compute/galleries/testsubimagebuilder/images/Win2019_STIG",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/testsubimagebuilder/images/Win2019_STIG')]",
               "runOutputName": "Win2019_STIG",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
@@ -72,7 +82,8 @@
               },
               "replicationRegions": [
                 "eastus",
-                "eastus2"
+                "eastus2",
+                "southcentralus"
               ]
             }
           ]
