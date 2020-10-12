@@ -6,8 +6,8 @@
 # Get-AzProviderFeature -FeatureName VirtualMachineTemplatePreview -ProviderNamespace Microsoft.VirtualMachineImages
 
 $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
-$imageResourceGroup = "TestSubdeploy"
-$deploymentName = "TestImageBuilder" + (Get-Random)
+$imageResourceGroup = "TestSubdeploySecond"
+$deploymentName = "TestImageBuilderSecond" + (Get-Random)
 # Special notes:
 # - workspace template include automation account and both have hard coded location. https://docs.microsoft.com/en-us/azure/automation/how-to/region-mappings#supported-mappings
 New-AzSubscriptionDeployment `

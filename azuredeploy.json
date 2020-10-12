@@ -92,6 +92,11 @@
                 "templateLink": {
                     "uri": "[variables('imageGalleryUrl')]",
                     "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "name": {
+                        "value": "[parameters('rgName')]"
+                    }
                 }
             }
         },

@@ -1,11 +1,18 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "name": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "imageGalleryName":"[concat(parameters('name'), 'SIG', uniqueString(resourceGroup().id))]"
+    },
     "resources": [
         {
             "type": "Microsoft.Compute/galleries",
-            "name": "testsubimagebuilder",
+            "name": "[variables('imageGalleryName')]",
             "apiVersion": "2019-03-01",
             "location": "[resourceGroup().location]",
             "properties": {},
