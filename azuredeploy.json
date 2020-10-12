@@ -114,6 +114,11 @@
                 "templateLink": {
                     "uri": "[variables('imageDefinitionUrl')]",
                     "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "galleryName":{
+                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    }
                 }
             }
         },
