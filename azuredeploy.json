@@ -24,7 +24,8 @@
         "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
         "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
         "win10MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/Windows10v1r23/localhost.mof')]",
-        "srv2019MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/WindowsServer2019v1r5/localhost.mof')]"
+        "srv2019MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/WindowsServer2019v1r5/localhost.mof')]",
+        "srv2019xccdfUrl": "[uri(deployment().properties.templateLink.uri, 'xccdf/U_MS_Windows_Server_2019_STIG_V1R5_Manual-xccdf.xml')]"
     },
     "resources": [
         {
@@ -163,6 +164,12 @@
                     },
                     "mofUrl":{
                         "value": "[variables('srv2019MofUrl')]"
+                    },
+                    "galleryName":{
+                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    },
+                    "xccdffUrl": {
+                        "value": "[variables('srv2019xccdfUrl')]"
                     }
                 }
             }

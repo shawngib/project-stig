@@ -10,6 +10,9 @@
       },
       "xccdffUrl": {
         "type": "string"
+      },
+      "galleryName": {
+        "type": "string"
       }
     },
     "variables": {
@@ -59,7 +62,7 @@
             },
             {
               "type": "File",
-              "name": "mofFileDownload",
+              "name": "xccdfDownload",
               "sourceUri": "[parameters('xccdffUrl')]",
               "destination": "c:\\U_MS_Windows_Server_2019_STIG_V1R5_Manual-xccdf.xml"
             },
@@ -82,7 +85,7 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/testsubimagebuilder/images/Win2019_STIG')]",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/Win2019_STIG')]",
               "runOutputName": "Win2019_STIG",
               "artifactTags": {
                 "source": "azureVmImageBuilder",

@@ -7,6 +7,9 @@
       },
       "identityId": {
         "type": "string"
+      },
+      "galleryName": {
+        "type": "string"
       }
     },
     "variables": {
@@ -73,7 +76,7 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/testsubimagebuilder/images/Win10WVDw365_STIG')]",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/Win10WVDw365_STIG')]",
               "runOutputName": "Win10WVDw365_Stig",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
