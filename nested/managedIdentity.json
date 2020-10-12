@@ -35,9 +35,9 @@
         }
     ],
     "outputs": {
-        "resourceId" : {
+        "identityName" : {
             "type": "string",
-            "value": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]"
+            "value": "[variables('identityName')]"
         }
     }
 }

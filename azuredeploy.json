@@ -138,7 +138,7 @@
                 },
                 "parameters": {
                     "identityId":{
-                        "value": "[reference('managedIdentityDeploy').outputs.resourceId.value]"
+                        "value": "[reference('managedIdentityDeploy').outputs.identityName.value]"
                     },
                     "mofUrl":{
                         "value": "[variables('win10MofUrl')]"
@@ -165,7 +165,7 @@
                 },
                 "parameters": {
                     "identityId":{
-                        "value": "[reference('managedIdentityDeploy').outputs.resourceId.value]"
+                        "value": "[reference('managedIdentityDeploy').outputs.identityName.value]"
                     },
                     "mofUrl":{
                         "value": "[variables('srv2019MofUrl')]"
