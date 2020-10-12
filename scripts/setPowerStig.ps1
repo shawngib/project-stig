@@ -32,7 +32,7 @@ Import-Module PowerStig -Force
 # Enable WSMan / WinRm
 LogMessage -message "**** Installing WSMAN, setting MaxEvelopeSize and disabling PSremoting"
 Set-WSManQuickConfig -Force
-Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192 # PowerSTIG DSC requires larger envelope size. TODO: get correct size
+Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192 # PowerSTIG DSC requires larger envelope size. 
 Disable-PSRemoting # PowerShell remoting required so disable it.
 
 LogMessage -message "**** Running DscConfiguration Test"

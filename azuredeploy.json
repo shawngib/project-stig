@@ -23,8 +23,8 @@
         "imageDefinitionUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageDefinition.json')]",
         "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
         "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
-        "win10MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/windows10/localhost.mof')]",
-        "srv2019MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/windows2019/localhost.mof')]"
+        "win10MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/Windows10v1r23/localhost.mof')]",
+        "srv2019MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/WindowsServer2019v1r5/localhost.mof')]"
     },
     "resources": [
         {
@@ -85,7 +85,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
+                "managedIdentityDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -108,6 +108,11 @@
                 "templateLink": {
                     "uri": "[variables('imageDefinitionUrl')]",
                     "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "managedId":{
+                        "value": "[reference('managedIdentityDeploy').outputs.resourceId.value]"
+                    }
                 }
             }
         },

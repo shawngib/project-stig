@@ -9,7 +9,7 @@
     },
     "functions": [],
     "variables": {
-        "identityName": "[concat(parameters('name'), '-identity')]",
+        "identityName": "[concat(parameters('name'), 'identity', uniqueString(resourceGroup().id))]",
         "bootstrapRoleAssignmentId": "[guid(concat(resourceGroup().id, 'contributor'))]"
     },
     "resources": [
@@ -35,7 +35,7 @@
         }
     ],
     "outputs": {
-        "managedIdentityId" : {
+        "resourceId" : {
             "type": "string",
             "value": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]"
         }
