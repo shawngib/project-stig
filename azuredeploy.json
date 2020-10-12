@@ -136,6 +136,9 @@
                     },
                     "mofUrl":{
                         "value": "[variables('win10MofUrl')]"
+                    },
+                    "galleryName":{
+                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
                     }
                 }
             }

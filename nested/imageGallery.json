@@ -18,5 +18,10 @@
             "properties": {},
             "tags": {}
         }
-    ]
+    ],
+    "outputs": {
+         "galleryName" : {
+            "type": "string",
+            "value": "[variables('imageGalleryName')]"
+    }
 }

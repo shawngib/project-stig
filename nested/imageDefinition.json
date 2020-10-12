@@ -33,8 +33,7 @@
             ]
         },
         "galleryName": {
-            "type": "string",
-            "defaultValue": "testsubimagebuilder"
+            "type": "string"
         },
         "hyperVGeneration": {
             "type": "string",
