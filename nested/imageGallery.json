@@ -23,5 +23,6 @@
          "galleryName" : {
             "type": "string",
             "value": "[variables('imageGalleryName')]"
+        }
     }
 }
