@@ -2,15 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "name": {
-        "type": "string"
-      },
       "mofUrl":{
           "type": "string"
+      },
+      "identityId": {
+        "type": "string"
       }
     },
     "variables": {
-      "identityName": "[concat(parameters('name'), '-identity')]",
       "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
       "imageTemplateName": "Win10WVDw365_STIG"
     },
@@ -30,7 +29,7 @@
         "identity": {
           "type": "UserAssigned",
           "userAssignedIdentities": {
-            "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',variables('identityName'))]": {
+            "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',parameters('identityId'))]": {
               
             }
           }

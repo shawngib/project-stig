@@ -2,15 +2,17 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "name": {
-        "type": "string"
-      },
       "mofUrl":{
           "type": "string"
+      },
+      "identityId": {
+        "type": "string"
+      },
+      "xccdffUrl": {
+        "type": "string"
       }
     },
     "variables": {
-      "identityName": "[concat(parameters('name'), '-identity')]",
       "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
       "imageTemplateName": "Win2019_STIG"
     },
@@ -30,7 +32,7 @@
         "identity": {
           "type": "UserAssigned",
           "userAssignedIdentities": {
-            "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',variables('identityName'))]": {
+            "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',parameters('identityId'))]": {
               
             }
           }
@@ -54,6 +56,12 @@
               "name": "mofFileDownload",
               "sourceUri": "[parameters('mofUrl')]",
               "destination": "c:\\localhost.mof"
+            },
+            {
+              "type": "File",
+              "name": "mofFileDownload",
+              "sourceUri": "[parameters('xccdffUrl')]",
+              "destination": "c:\\U_MS_Windows_Server_2019_STIG_V1R5_Manual-xccdf.xml"
             },
             {
               "type": "PowerShell",
@@ -85,6 +93,10 @@
                 "eastus2",
                 "southcentralus"
               ]
+            },
+            {
+              "type": "VHD",
+              "runOutputName": "Win2019_STIG"
             }
           ]
         }
