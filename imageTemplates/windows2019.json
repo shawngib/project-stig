@@ -99,7 +99,7 @@
             },
             {
               "type": "VHD",
-              "runOutputName": "Win2019_STIG"
+              "runOutputName": "Win2019_STIG_VHD"
             }
           ]
         }
