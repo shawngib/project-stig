@@ -118,6 +118,9 @@
                 "parameters": {
                     "galleryName":{
                         "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    },
+                    "workspaceName": {
+                        "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     }
                 }
             }

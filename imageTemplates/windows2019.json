@@ -13,11 +13,17 @@
       },
       "galleryName": {
         "type": "string"
+      },
+      "workspaceName": {
+        "type": "string"
       }
     },
     "variables": {
-      "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
-      "imageTemplateName": "Win2019_STIG"
+      "setPowerStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
+      "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/auditStig.ps1",
+      "imageTemplateName": "Win2019_STIG",
+      "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]",
+      "wsKey": "[listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey]"
     },
     "resources": [
       {
@@ -55,6 +61,14 @@
           },
           "customize": [
             {
+                "type": "Shell",
+                "name": "setEnvVariables",
+                "inline": [
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_ID'',''',reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName')),'2017-03-15-preview').customerId,''',[System.EnvironmentVariableTarget]::User)')]",
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_KEY'',''',variables('wsKey'),''', [System.EnvironmentVariableTarget]::User)')]"
+                ]
+            },
+            {
               "type": "File",
               "name": "mofFileDownload",
               "sourceUri": "[parameters('mofUrl')]",
@@ -70,8 +84,14 @@
               "type": "PowerShell",
               "name": "CreateBuildPath",
               "runElevated": true,
-              "scriptUri": "[variables('scriptsUrl')]"
-            },            
+              "scriptUri": "[variables('setPowerStigUrl')]"
+            },
+            {
+              "type": "PowerShell",
+              "name": "CreateBuildPath",
+              "runElevated": true,
+              "scriptUri": "[variables('setAuditingStigUrl')]"
+            },              
             {
               "type": "WindowsUpdate",
               "searchCriteria": "IsInstalled=0",

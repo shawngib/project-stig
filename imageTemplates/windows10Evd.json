@@ -10,6 +10,9 @@
       },
       "galleryName": {
         "type": "string"
+      },
+      "workspaceName": {
+        "type": "string"
       }
     },
     "variables": {

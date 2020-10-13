@@ -48,28 +48,10 @@ Function Post-LogAnalyticsData($customerId, $sharedKey, $body, $logType)
 }
 
 # Workspace ID - TestSubdeploy-eastusWS
-$CustomerId = "5afb6e25-595f-45de-b67b-c84bbc92631f"  
+$CustomerId = $env:WORKSPACE_ID
 
 # Primary Key
-$SharedKey = "ixgxiHcYp/a09eYKO6JtsU1NM4hJRe8tNapG9Ikgvo/6CunmjGgVj6ZIXA3TpxPsVDrUQjAJsT3rBhILDCb0BQ=="
-
-# Specify the name of the record type that you'll be creating
-$LogType = "STIG_Compliance_Computer"
-
-$computerInfo = Get-WmiObject Win32_ComputerSystem
-
-$computerJsonPayload = @{
-    Computer = $computerInfo.Name
-    Manufacturer = $computerInfo.Manufacturer
-    Model = $computerInfo.Model
-    PrimaryOwnerName = $computerInfo.PrimaryOwnerName
-    DesiredState = $audit.InDesiredState
-    Domain = $computerInfo.Domain
-}
-
-$json = $computerJsonPayload | ConvertTo-Json
-Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
-
+$SharedKey = $env:WORKSPACE_ID
 
 # Specify the name of the record type that you'll be creating
 $LogType = "STIG_Compliance_STIG"

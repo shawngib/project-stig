@@ -53,5 +53,10 @@
           }
         }        
     ],
-    "outputs": {}
+    "outputs": {
+        "workspaceName": {
+            "type": "string",
+            "value": "[variables('workspaceName')]"
+        }
+    }
 }
