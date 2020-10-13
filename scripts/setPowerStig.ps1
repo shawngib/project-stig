@@ -20,7 +20,7 @@ LogMessage -message "**** Installing PowerStig Module"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Install-Module PowerStig -Force
-Install-Module ProcessMitigations -Force
+Install-Module ProcessMitigations -Force -SkipPublisherCheck
 (Get-Module PowerStig -ListAvailable).RequiredModules | % {
     $PSItem | Install-Module -Force
  } 
@@ -99,7 +99,13 @@ $computerJsonPayload = @{
     DesiredState = $audit.InDesiredState
     Domain = $computerInfo.Domain
 }
-
+# Workspace ID - TestSubdeploy-eastusWS
+$CustomerId = $env:WORKSPACE_ID
+$CustomerId 4>&1 >> c:\imagebuilder\verbose.txt
+# Primary Key
+$SharedKey = $env:WORKSPACE_ID
+$SharedKey 4>&1 >> c:\imagebuilder\verbose.txt
 $json = $computerJsonPayload | ConvertTo-Json
-Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
+$json 4>&1 >> c:\imagebuilder\verbose.txt
+#Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
 
