@@ -17,7 +17,7 @@
     },
     "variables": {
       "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
-      "imageTemplateName": "Win10WVDw365_STIG",
+      "imageTemplateName": "Win10WVDw365_STIG_TEST",
       "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
     },
     "resources": [
@@ -80,8 +80,8 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/Win10WVDw365_STIG')]",
-              "runOutputName": "Win10WVDw365_Stig",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/Win10WVDw365_STIG_TEST')]",
+              "runOutputName": "Win10WVDw365_STIG_TEST",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
                 "baseosimg": "windowsclient"
