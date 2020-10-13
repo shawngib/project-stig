@@ -10,15 +10,11 @@
       },
       "galleryName": {
         "type": "string"
-      },
-      "workspaceName": {
-        "type": "string"
       }
     },
     "variables": {
       "scriptsUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
-      "imageTemplateName": "Win10WVDw365_STIG_TEST",
-      "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+      "imageTemplateName": "Win10WVDw365_STIG_TEST"
     },
     "resources": [
       {
