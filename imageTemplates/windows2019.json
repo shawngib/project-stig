@@ -22,8 +22,7 @@
       "setPowerStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
       "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/auditStig.ps1",
       "imageTemplateName": "Win2019_STIG_Test",
-      "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]",
-      "wsKey": "[listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey]"
+      "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
     },
     "resources": [
       {
@@ -65,7 +64,7 @@
                 "name": "setEnvVariables",
                 "inline": [
                   "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_ID'',''',reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName')),'2017-03-15-preview').customerId,''',[System.EnvironmentVariableTarget]::User)')]",
-                  "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_KEY'',''',variables('wsKey'),''', [System.EnvironmentVariableTarget]::User)')]"
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_KEY'',''',listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey,''', [System.EnvironmentVariableTarget]::User)')]"
                 ]
             },
             {
