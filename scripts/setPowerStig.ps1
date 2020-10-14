@@ -24,8 +24,11 @@ Install-Module ProcessMitigations -Force -SkipPublisherCheck
 (Get-Module PowerStig -ListAvailable).RequiredModules | % {
     $PSItem | Install-Module -Force
  } 
-LogMessage -message "**** Setting execution policy"
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force # Windows 10 only
+ if((Get-ComputerInfo).OsProductType -eq 'WorkStation') 
+ {
+    LogMessage -message "**** Setting execution policy"
+    Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force # Windows 10 only
+ }
 LogMessage -message "**** Importing PowerStig Module"
 Import-Module PowerStig -Force
 
@@ -33,10 +36,10 @@ Import-Module PowerStig -Force
 LogMessage -message "**** Installing WSMAN, setting MaxEvelopeSize and disabling PSremoting"
 Set-WSManQuickConfig -Force
 Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192 # PowerSTIG DSC requires larger envelope size. 
-Disable-PSRemoting # PowerShell remoting required so disable it.
+#Disable-PSRemoting # PowerShell remoting required so disable it.
 
 LogMessage -message "**** Running DscConfiguration Test"
-Start-DscConfiguration -Path "c:\" -Force -Wait -Verbose 4>&1 >> c:\imagebuilder\verbose.txt
+#$null = Start-DscConfiguration -Path "c:\" -Force -Wait -Verbose 4>&1 >> c:\imagebuilder\verbose.txt
 
 LogMessage -message "**** Setting up logging to LA Workspace "
 $TimeStampField = (Get-Date).ToString()
@@ -96,7 +99,7 @@ $computerJsonPayload = @{
     Manufacturer = $computerInfo.Manufacturer
     Model = $computerInfo.Model
     PrimaryOwnerName = $computerInfo.PrimaryOwnerName
-    DesiredState = $audit.InDesiredState
+    DesiredState = $false #$audit.InDesiredState ###################################Change back
     Domain = $computerInfo.Domain
 }
 # Workspace ID - TestSubdeploy-eastusWS
