@@ -39,7 +39,7 @@ Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192 # PowerSTIG DSC re
 #Disable-PSRemoting # PowerShell remoting required so disable it.
 
 LogMessage -message "**** Running DscConfiguration Test"
-#$null = Start-DscConfiguration -Path "c:\" -Force -Wait -Verbose 4>&1 >> c:\imagebuilder\verbose.txt
+$null = Start-DscConfiguration -Path "c:\" -Force -Wait -Verbose 4>&1 >> c:\imagebuilder\verbose.txt
 
 LogMessage -message "**** Setting up logging to LA Workspace "
 $TimeStampField = (Get-Date).ToString()
@@ -88,7 +88,7 @@ Function Post-LogAnalyticsData($customerId, $sharedKey, $body, $logType)
     return $response.StatusCode
 }
 
-$audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof"  -ErrorAction SilentlyContinue
+#$audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof"  -ErrorAction SilentlyContinue
 # Specify the name of the record type that you'll be creating
 $LogType = "STIG_Compliance_Computer"
 
@@ -110,5 +110,5 @@ $SharedKey = $env:WORKSPACE_ID
 $SharedKey 4>&1 >> c:\imagebuilder\verbose.txt
 $json = $computerJsonPayload | ConvertTo-Json
 $json 4>&1 >> c:\imagebuilder\verbose.txt
-#Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
+Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
 
