@@ -20,7 +20,7 @@ LogMessage -message "**** Installing PowerStig Module"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Install-Module PowerStig -Force
-Install-Module ProcessMitigations -Force -SkipPublisherCheck
+#Install-Module ProcessMitigations -Force -SkipPublisherCheck
 (Get-Module PowerStig -ListAvailable).RequiredModules | % {
     $PSItem | Install-Module -Force
  } 
@@ -89,6 +89,13 @@ Function Post-LogAnalyticsData($customerId, $sharedKey, $body, $logType)
 }
 
 #$audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof"  -ErrorAction SilentlyContinue
+
+
+# Workspace ID - TestSubdeploy-eastusWS
+$customerId = $env:WORKSPACE_ID
+
+# Primary Key
+$sharedKey = $env:WORKSPACE_KEY
 # Specify the name of the record type that you'll be creating
 $LogType = "STIG_Compliance_Computer"
 
@@ -98,16 +105,10 @@ $computerJsonPayload = @{
     Computer = $computerInfo.Name
     Manufacturer = $computerInfo.Manufacturer
     Model = $computerInfo.Model
-    PrimaryOwnerName = $computerInfo.PrimaryOwnerName
+    PrimaryOwnerName = "ImageBuilder"
     DesiredState = $false #$audit.InDesiredState ###################################Change back
     Domain = $computerInfo.Domain
 }
-# Workspace ID - TestSubdeploy-eastusWS
-$CustomerId = $env:WORKSPACE_ID
-$CustomerId 4>&1 >> c:\imagebuilder\verbose.txt
-# Primary Key
-$SharedKey = $env:WORKSPACE_ID
-$SharedKey 4>&1 >> c:\imagebuilder\verbose.txt
 $json = $computerJsonPayload | ConvertTo-Json
 $json 4>&1 >> c:\imagebuilder\verbose.txt
 Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType

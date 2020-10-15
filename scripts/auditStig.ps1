@@ -1,4 +1,5 @@
-﻿$audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof"  -ErrorAction SilentlyContinue
+﻿Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192
+$audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof"  -ErrorAction SilentlyContinue
 # Audit runtime
 $TimeStampField = (Get-Date).ToString()
 
@@ -48,10 +49,28 @@ Function Post-LogAnalyticsData($customerId, $sharedKey, $body, $logType)
 }
 
 # Workspace ID - TestSubdeploy-eastusWS
-$CustomerId = $env:WORKSPACE_ID
+$customerId = $env:WORKSPACE_ID
 
 # Primary Key
-$SharedKey = $env:WORKSPACE_ID
+$sharedKey = $env:WORKSPACE_KEY
+
+# Specify the name of the record type that you'll be creating
+$LogType = "STIG_Compliance_Computer"
+
+$computerInfo = Get-WmiObject Win32_ComputerSystem
+
+$computerJsonPayload = @{
+    Computer = $computerInfo.Name
+    Manufacturer = $computerInfo.Manufacturer
+    Model = $computerInfo.Model
+    PrimaryOwnerName = $computerInfo.PrimaryOwnerName
+    DesiredState = $audit.InDesiredState
+    Domain = $computerInfo.Domain
+}
+
+$json = $computerJsonPayload | ConvertTo-Json
+
+Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
 
 # Specify the name of the record type that you'll be creating
 $LogType = "STIG_Compliance_STIG"
@@ -67,16 +86,17 @@ foreach($record in $audit.ResourcesInDesiredState)
     $severity = ""
     $version = ""
     $ResourceID = ""
+    $
 
     $ResourceID = [regex]::Matches($record.ResourceId,'(?<=\[).+?(?=\])')
     
-    $type = $ResourceID[0].Value
+   
 
     if($ResourceID.Count -le 2) # EX: [ProcessMitigation]iexplore.exe-ASLR-ForceRelocateImages-V-77217.b::[WindowsClient]BaseLine
     {
         # Finishing parsing application specific stuff
         try{
-            $findingId = "V-"+ ($record.ResourceId.Split("]")[1].split("[")[0].Split("-")[4].Split(".")[0])
+            $findingId = "V-"+ ($record.ResourceId.Split("]")[1].split("[")[0].Split("-")[4]) # removed .Split(".")[0] to get .a or .b ect.
         } catch {
             $findingId = "null"
         }
@@ -88,7 +108,11 @@ foreach($record in $audit.ResourcesInDesiredState)
         $severity = $ResourceID[2].Value
         $version = $ResourceID[3].Value
     }
-
+    if($version -eq "[Skip")
+    {
+        $version = "" # TODO: get data from XML and add to telemetry
+        $type = "Skip"
+    }
 
     $object = @{
         Computer = $computerInfo.Name
@@ -105,6 +129,7 @@ foreach($record in $audit.ResourcesInDesiredState)
         Error = $record.Error
         FinalState = $record.FinalState
         SourceInfo = $record.SourceInfo
+        SetBy = "PowerSTIG"
     }
     $findings+= $object
 

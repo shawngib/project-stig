@@ -20,7 +20,7 @@
     },
     "variables": {
       "setPowerStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
-      "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/auditStig.ps1",
+      "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/createSchduler.ps1",
       "imageTemplateName": "Win2019_STIG_Test",
       "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
     },
@@ -62,7 +62,6 @@
             {
                 "type": "PowerShell",
                 "name": "setEnvVariables",
-                "runElevated": true,
                 "inline": [
                   "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_ID'',''',reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName')),'2017-03-15-preview').customerId,''',[System.EnvironmentVariableTarget]::Machine)')]",
                   "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_KEY'',''',listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey,''', [System.EnvironmentVariableTarget]::Machine)')]"
@@ -75,32 +74,23 @@
               "destination": "c:\\localhost.mof"
             },
             {
-              "type": "File",
-              "name": "xccdfDownload",
-              "sourceUri": "[parameters('xccdffUrl')]",
-              "destination": "c:\\U_MS_Windows_Server_2019_STIG_V1R5_Manual-xccdf.xml"
-            },
-            {
               "type": "PowerShell",
               "name": "CreateBuildPath",
               "runElevated": true,
               "scriptUri": "[variables('setPowerStigUrl')]"
             },
             {
+              "type": "File",
+              "name": "xccdfDownload",
+              "sourceUri": "[parameters('xccdffUrl')]",
+              "destination": "c:\\imagebuilder\\auditStig.ps1"
+            },
+            {
               "type": "PowerShell",
               "name": "CreateBuildPath",
               "runElevated": true,
               "scriptUri": "[variables('setAuditingStigUrl')]"
-            },              
-            {
-              "type": "WindowsUpdate",
-              "searchCriteria": "IsInstalled=0",
-              "filters": [
-                "exclude:$_.Title -like '*Preview*'",
-                "include:$true"
-              ],
-              "updateLimit": 40
-            }
+            } 
           ],
           "distribute": [
             {
