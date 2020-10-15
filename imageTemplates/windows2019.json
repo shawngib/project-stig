@@ -75,23 +75,17 @@
               "destination": "c:\\localhost.mof"
             },
             {
+              "type": "File",
+              "name": "SuditScriptDownload",
+              "sourceUri": "[variables('setAuditingStigUrl')]",
+              "destination": "c:\\auditStig.ps1"
+            },
+            {
               "type": "PowerShell",
               "name": "CreateBuildPath",
               "runElevated": true,
               "scriptUri": "[variables('setPowerStigUrl')]"
-            },
-            {
-              "type": "File",
-              "name": "SuditScriptDownload",
-              "sourceUri": "[variables('setAuditingStigUrl')]",
-              "destination": "c:\\imagebuilder\\auditStig.ps1"
-            },
-            {
-              "type": "PowerShell",
-              "name": "CreateAuditTask",
-              "runElevated": true,
-              "scriptUri": "[variables('setStigAuitSchduleUrl')]"
-            } 
+            }
           ],
           "distribute": [
             {
