@@ -20,7 +20,7 @@
     },
     "variables": {
       "setPowerStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
-      "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/auditstig.ps1",
+      "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/auditStig.ps1",
       "setStigAuitSchduleUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/createSchduler.ps1",
       "imageTemplateName": "Win2019_STIG_Test",
       "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
