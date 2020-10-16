@@ -85,6 +85,15 @@
               "name": "SetUpPowerStig",
               "runElevated": true,
               "scriptUri": "[variables('setPowerStigUrl')]"
+            },            
+            {
+              "type": "WindowsUpdate",
+              "searchCriteria": "IsInstalled=0",
+              "filters": [
+                "exclude:$_.Title -like '*Preview*'",
+                "include:$true"
+              ],
+              "updateLimit": 40
             }
           ],
           "distribute": [
