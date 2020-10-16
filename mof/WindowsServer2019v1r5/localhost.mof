@@ -3407,7 +3407,7 @@ ResourceID = "[RegistryPolicyFile][V-93519][medium][SRG-OS-000134-GPOS-00068]::[
  Ensure = "Present";
  Key = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
  ValueData = {
-    "0"
+    "1"
 };
  SourceInfo = "C:\\Program Files\\WindowsPowerShell\\Modules\\PowerSTIG\\4.5.0\\DSCResources\\Resources\\windows.Registry.ps1::40::13::RegistryPolicyFile";
  ValueType = "Dword";
