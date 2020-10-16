@@ -85,15 +85,12 @@
               "name": "SetUpPowerStig",
               "runElevated": true,
               "scriptUri": "[variables('setPowerStigUrl')]"
-            },            
+            },
             {
-              "type": "WindowsUpdate",
-              "searchCriteria": "IsInstalled=0",
-              "filters": [
-                "exclude:$_.Title -like '*Preview*'",
-                "include:$true"
-              ],
-              "updateLimit": 40
+              "type": "WindowsRestart",
+                  "restartCommand": "shutdown /r /f /t 0", 
+                  "restartCheckCommand": "echo Azure-Image-Builder-Restarted-the-VM  > c:\\imagebuilder\\azureImageBuilderRestart.txt",
+                  "restartTimeout": "5m"
             }
           ],
           "distribute": [
