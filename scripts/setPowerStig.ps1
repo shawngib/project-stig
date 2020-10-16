@@ -132,3 +132,30 @@ $STModify = Get-ScheduledTask -TaskName $STName
 $STModify.Triggers.repetition.Duration = 'P1D'
 $STModify.Triggers.repetition.Interval = 'PT20M'
 $STModify | Set-ScheduledTask #>
+
+
+<#
+# Potential Fix for paker failing to upload content after STIGs are set
+winrm set winrm/config/client/auth '@{Basic="true"}'
+winrm set winrm/config/service/auth '@{Basic="true"}'
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+#>
+
+# Powershell to set AllowUnencrypted even if network is public
+# Get the public networks
+$PubNets = Get-NetConnectionProfile -NetworkCategory Public -ErrorAction SilentlyContinue 
+
+# Set the profile to private
+foreach ($PubNet in $PubNets) {
+    Set-NetConnectionProfile -InterfaceIndex $PubNet.InterfaceIndex -NetworkCategory Private
+}
+
+# Configure winrm
+winrm set winrm/config/client/auth '@{Basic="true"}'
+winrm set winrm/config/service/auth '@{Basic="true"}'
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+
+# Restore network categories
+foreach ($PubNet in $PubNets) {
+    Set-NetConnectionProfile -InterfaceIndex $PubNet.InterfaceIndex -NetworkCategory Public
+}
