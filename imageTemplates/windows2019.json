@@ -82,7 +82,7 @@
             },
             {
               "type": "PowerShell",
-              "name": "CreateBuildPath",
+              "name": "SetUpPowerStig",
               "runElevated": true,
               "scriptUri": "[variables('setPowerStigUrl')]"
             }
