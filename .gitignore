@@ -3,6 +3,7 @@
 
 # ignore files in following directories
 PowerStigTemp/
+xccdf/
 
 # ignore temporary VM deploy test scripts
 testDeployVm.ps1

@@ -139,7 +139,7 @@ $STModify | Set-ScheduledTask #>
 winrm set winrm/config/client/auth '@{Basic="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 winrm set winrm/config/service '@{AllowUnencrypted="true"}'
-#>
+
 
 # Powershell to set AllowUnencrypted even if network is public
 # Get the public networks
@@ -159,3 +159,4 @@ winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 foreach ($PubNet in $PubNets) {
     Set-NetConnectionProfile -InterfaceIndex $PubNet.InterfaceIndex -NetworkCategory Public
 }
+#>
