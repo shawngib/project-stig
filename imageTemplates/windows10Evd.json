@@ -18,7 +18,8 @@
     "variables": {
       "setPowerStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
       "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/auditStig.ps1",
-      "imageTemplateName": "Win10WVDw365_STIG_TEST"
+      "imageTemplateName": "Win10WVDw365_STIG_TEST",
+      "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
     },
     "resources": [
       {

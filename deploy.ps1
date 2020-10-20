@@ -36,7 +36,7 @@ if ($decision -eq 0) {
       -ResourceGroupName $imageResourceGroup `
       -ResourceType Microsoft.VirtualMachineImages/imageTemplates `
       -ApiVersion "2020-02-14" `
-      -Action Run
+      -Action Run 
 } else {
     Write-Host 'Skipping create image action.' -ForegroundColor Red
 }
