@@ -131,7 +131,7 @@
                 "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
-                "mode": "Incremental",
+                "mode": "Complete",
                 "templateLink": {
                     "uri": "[variables('win10mageTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
@@ -145,6 +145,9 @@
                     },
                     "galleryName":{
                         "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    },
+                    "workspaceName": {
+                        "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     }
                 }
             }
@@ -158,7 +161,7 @@
                 "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
-                "mode": "Incremental",
+                "mode": "Complete",
                 "templateLink": {
                     "uri": "[variables('srv2019imageTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
@@ -172,9 +175,6 @@
                     },
                     "galleryName":{
                         "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
-                    },
-                    "xccdffUrl": {
-                        "value": "[variables('srv2019xccdfUrl')]"
                     },
                     "workspaceName": {
                         "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"

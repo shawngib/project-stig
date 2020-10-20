@@ -113,7 +113,7 @@ $json = $computerJsonPayload | ConvertTo-Json
 $json 4>&1 >> c:\imagebuilder\verbose.txt
 Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
 
-<# $STName = "PowerSTIG Audit Task"
+$STName = "PowerSTIG Audit Task"
 $STPath = "\PowerSTIG"
 $scheduleObject = New-Object -ComObject schedule.service
 $scheduleObject.connect()
@@ -131,7 +131,7 @@ Start-Sleep -Seconds 3
 $STModify = Get-ScheduledTask -TaskName $STName
 $STModify.Triggers.repetition.Duration = 'P1D'
 $STModify.Triggers.repetition.Interval = 'PT20M'
-$STModify | Set-ScheduledTask #>
+$STModify | Set-ScheduledTask <#  #>
 
 
 <#

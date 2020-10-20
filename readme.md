@@ -21,8 +21,10 @@ Basic resources used:
 4. Github
 5. Log Analytics Workspace
 6. Azure Automation (for future use)
+7. Managed Identity
 
-Resource used in the Image building process:
+Resources used in the Image building process:
 
 1. PowerSTIG DSC
 2. Custom scripts
+
