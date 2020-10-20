@@ -131,7 +131,7 @@
                 "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
-                "mode": "Complete",
+                "mode": "Incremental",
                 "templateLink": {
                     "uri": "[variables('win10mageTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
@@ -161,7 +161,7 @@
                 "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
-                "mode": "Complete",
+                "mode": "Incremental",
                 "templateLink": {
                     "uri": "[variables('srv2019imageTemplateUrl')]",
                     "contentVersion": "1.0.0.0"
