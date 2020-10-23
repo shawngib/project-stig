@@ -152,7 +152,9 @@
                     "workspaceName": {
                         "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     },
-                     "imageTemplateName": "Win10WVDw365_STIG"
+                     "imageTemplateName": {
+                         "value" :"Win10WVDw365_STIG"
+                     }
                 }
             }
         },
@@ -183,7 +185,9 @@
                     "workspaceName": {
                         "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     },
-                     "imageTemplateName": "Win2019_STIG"
+                     "imageTemplateName":  {
+                         "value" :"Win2019_STIG"
+                     }
                 }
             }
         },
@@ -214,7 +218,9 @@
                     "workspaceName": {
                         "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     },
-                     "imageTemplateName": "Win2019DC_STIG"
+                     "imageTemplateName":  {
+                         "value" :"Win2019DC_STIG"
+                     }
                 }
             }
         },
@@ -245,7 +251,9 @@
                     "workspaceName": {
                         "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     },
-                     "imageTemplateName": "Win2016_STIG"
+                     "imageTemplateName":  {
+                         "value" :"Win2016_STIG"
+                     }
                 }
             }
         },
@@ -276,7 +284,9 @@
                     "workspaceName": {
                         "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     },
-                     "imageTemplateName": "Win2016DC_STIG"
+                     "imageTemplateName":  {
+                         "value" :"Win2016DC_STIG"
+                     }
                 }
             }
         }
