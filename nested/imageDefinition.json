@@ -29,6 +29,42 @@
                     "maxRecommendedvCPUs": "8",
                     "minRecommendedMemory": "32",
                     "maxRecommendedMemory": "48"
+                },
+                {
+                    "imageDefinitionName": "Win2019DC_STIG",
+                    "osType": "Windows",
+                    "osState": "Generalized",
+                    "publisher": "AzureGlobalDesktop",
+                    "offer": "office-365",
+                    "sku": "20h1-evd-o365pp-stig",
+                    "minRecommendedvCPUs": "2",
+                    "maxRecommendedvCPUs": "8",
+                    "minRecommendedMemory": "32",
+                    "maxRecommendedMemory": "48"
+                },
+                {
+                    "imageDefinitionName": "Win2016_STIG",
+                    "osType": "Windows",
+                    "osState": "Generalized",
+                    "publisher": "MicrosoftWindowsServer",
+                    "offer": "WindowsServer",
+                    "sku": "2016-Datacenter",
+                    "minRecommendedvCPUs": "2",
+                    "maxRecommendedvCPUs": "8",
+                    "minRecommendedMemory": "32",
+                    "maxRecommendedMemory": "48"
+                },
+                {
+                    "imageDefinitionName": "Win2016DC_STIG",
+                    "osType": "Windows",
+                    "osState": "Generalized",
+                    "publisher": "MicrosoftWindowsServer",
+                    "offer": "WindowsServer",
+                    "sku": "2016-Datacenter",
+                    "minRecommendedvCPUs": "2",
+                    "maxRecommendedvCPUs": "8",
+                    "minRecommendedMemory": "32",
+                    "maxRecommendedMemory": "48"
                 }
             ]
         },

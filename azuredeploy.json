@@ -23,6 +23,7 @@
         "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
         "srv2016imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2016.json')]",
         "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
+        "imageDefinitionUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageDefinition.json')]",
         "win10MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/Windows10v1r23/localhost.mof')]",
         "srv2019MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/WindowsServer2019v1r5/localhost.mof')]",
         "srv2019DCMofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/WindowsServer2019DCv1r5/localhost.mof')]",
@@ -137,12 +138,33 @@
             }
         },
         {
+            "name": "imageDefinitionsDeploy",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "imageGalleryDeploy"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('imageDefinitionUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "galleryName":{
+                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    }
+                }
+            }
+        },
+        {
             "name": "windows2019STIGtemplate",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "managedIdentityDeploy"
+                "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -175,7 +197,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "managedIdentityDeploy"
+                "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -208,7 +230,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "managedIdentityDeploy"
+                "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -241,7 +263,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "managedIdentityDeploy"
+                "imageDefinitionsDeploy","managedIdentityDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
