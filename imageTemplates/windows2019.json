@@ -13,17 +13,19 @@
       },
       "workspaceName": {
         "type": "string"
+      },
+      "imageTemplateName": {
+        "type": "string"
       }
     },
     "variables": {
       "setPowerStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/setPowerStig.ps1",
       "setAuditingStigUrl": "https://raw.githubusercontent.com/shawngib/project-stig/master/scripts/auditStig.ps1",
-      "imageTemplateName": "Win2019_STIG_Test",
       "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
     },
     "resources": [
       {
-        "name": "[variables('imageTemplateName')]",
+        "name": "[parameters('imageTemplateName')]",
         "type": "Microsoft.VirtualMachineImages/imageTemplates",
         "apiVersion": "2020-02-14",
         "location": "[resourceGroup().location]",
@@ -95,8 +97,8 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/Win2019_STIG_TEST')]",
-              "runOutputName": "Win2019_STIG_TEST",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/',parameters('imageTemplateName'),'/1.5')]",
+              "runOutputName": "[parameters('imageTemplateName')]",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
                 "baseosimg": "WindowsServer"
@@ -109,7 +111,7 @@
             },
             {
               "type": "VHD",
-              "runOutputName": "Win2019_STIG_TEST_VHD"
+              "runOutputName": "Win2019_STIG_V1R5"
             }
           ]
         }

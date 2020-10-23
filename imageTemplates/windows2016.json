@@ -52,9 +52,9 @@
           },
           "source": {
             "type": "PlatformImage",
-            "publisher": "MicrosoftWindowsDesktop",
-            "offer": "office-365",
-            "sku": "20h1-evd-o365pp",
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2016-Datacenter",
             "version": "latest"
           },
           "customize": [
@@ -79,9 +79,8 @@
               "destination": "c:\\auditStig.ps1"
             },
             {
-              "type": "PowerShell",
+              "type": "File",
               "name": "SetUpPowerStig",
-              "runElevated": true,
               "scriptUri": "[variables('setPowerStigUrl')]"
             },            
             {
@@ -97,17 +96,21 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/', parameters('imageTemplateName'),'/1.23')]",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/',parameters('imageTemplateName'),'/1.12')]",
               "runOutputName": "[parameters('imageTemplateName')]",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
-                "baseosimg": "windowsclient"
+                "baseosimg": "WindowsServer"
               },
               "replicationRegions": [
                 "eastus",
                 "eastus2",
                 "southcentralus"
               ]
+            },
+            {
+              "type": "VHD",
+              "runOutputName": "Win2016_STIG_V1R12"
             }
           ]
         }

@@ -1,4 +1,4 @@
-configuration WindowsServer2019v1r5
+configuration WindowsServer2019DCv1r5
 {
     param()
     Import-DscResource -ModuleName PowerSTIG -ModuleVersion 4.5.1
@@ -7,7 +7,7 @@ configuration WindowsServer2019v1r5
         WindowsServer BaseLine
         {
             OsVersion   = '2019'
-            OsRole      = 'MS'
+            OsRole      = 'DC'
             SkipRule    = 'V-93217', 'V-93571', 'V-93335', 'V-93429' 
             StigVersion = '1.5'
             Exception   = @{
@@ -30,4 +30,4 @@ configuration WindowsServer2019v1r5
         }
     }
 }
-WindowsServer2019v1r5 -Output c:\imagebuilder
+WindowsServer2019DCv1r5  -Output c:\imagebuilder

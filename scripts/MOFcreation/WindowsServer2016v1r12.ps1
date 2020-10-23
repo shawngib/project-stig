@@ -1,4 +1,4 @@
-configuration WindowsServer2019v1r5
+configuration WindowsServer2016v1r12
 {
     param()
     Import-DscResource -ModuleName PowerSTIG -ModuleVersion 4.5.1
@@ -6,28 +6,28 @@ configuration WindowsServer2019v1r5
     {
         WindowsServer BaseLine
         {
-            OsVersion   = '2019'
+            OsVersion   = '2016'
             OsRole      = 'MS'
-            SkipRule    = 'V-93217', 'V-93571', 'V-93335', 'V-93429' 
-            StigVersion = '1.5'
+            SkipRule    = 'V-73241', 'V-73279', 'V-73603' # must use an anti-virus program, host-based firewall,  'V-93335' Exploit Protection mitigations must be configured for iexplore.exe, The Windows Remote Management (WinRM) service must not store RunAs credentials
+            StigVersion = '1.12'
             Exception   = @{
-                'V-93519' = @{
+                'V-73495' = @{
                     ValueData = '1' # Required for using Azure Image Builder access to creation
                 }
-                'V-92965' = @{
+                'V-73775' = @{
                     Identity = 'Guests' 
                 }
-                'V-93009' = @{
+                'V-73759' = @{
                     Identity = 'Guests'
                 }
-                'V-93011' = @{
+                'V-73763' = @{
                     Identity = 'Guests'
                 }
-                'V-93015' = @{
+                'V-73771' = @{
                     Identity = 'Guests'
                 }
             }
         }
     }
 }
-WindowsServer2019v1r5 -Output c:\imagebuilder
+WindowsServer2016v1r12  -Output c:\imagebuilder

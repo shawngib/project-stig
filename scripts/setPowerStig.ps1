@@ -1,6 +1,6 @@
 # Creating a logging function to enter steps in the process are logged
 $path = "c:\imageBuilder"
-$logFile = "$path\setLgpoLog.txt"
+$logFile = "$path\setupLog.txt"
 function LogMessage
 {
     param([string]$message)
@@ -19,7 +19,7 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 LogMessage -message "**** Installing PowerStig Module"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Install-Module PowerStig -Force
+Install-Module PowerStig -RequiredVersion 4.5.1 -Force
 #Install-Module ProcessMitigations -Force -SkipPublisherCheck
 (Get-Module PowerStig -ListAvailable).RequiredModules | % {
     $PSItem | Install-Module -Force
