@@ -90,15 +90,6 @@
               "name": "SetUpPowerStig",
               "sourceUri": "[variables('setPowerStigUrl')]",
               "destination": "c:\\setPowerStig.ps1"
-            },            
-            {
-              "type": "WindowsUpdate",
-              "searchCriteria": "IsInstalled=0",
-              "filters": [
-                "exclude:$_.Title -like '*Preview*'",
-                "include:$true"
-              ],
-              "updateLimit": 40
             }
           ],
           "distribute": [
