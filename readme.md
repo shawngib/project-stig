@@ -46,27 +46,26 @@ Not yet supported by this proejct are:
 
 To deploy the correct resources that enable a base of STIG'd inages be created in you subscription run the following:
 
-<code>$url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"\
-$imageResourceGroup = "\<add you resource group name to create\>" \
-$deploymentName = "\<Add a name of deployment\>" + (Get-Random)\
-
-New-AzSubscriptionDeployment \`\
-  -Name $deploymentName \` \
-  -Location eastus \` \
-  -TemplateUri $url \` \
-  -rgName $imageResourceGroup \`\
-  -rgLocation eastus \`\
-  -DeploymentDebugLogLevel All\
-  </code>
+```    $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
+    $imageResourceGroup = "\<add you resource group name to create\>" 
+    $deploymentName = "\<Add a name of deployment\>" + (Get-Random)
+    New-AzSubscriptionDeployment `
+    -Name $deploymentName `
+    -Location eastus `
+    -TemplateUri $url `
+    -rgName $imageResourceGroup `
+    -rgLocation eastus `
+    -DeploymentDebugLogLevel All
+```
 
 At this point you should have the needed resources to create STIG's images. Run the folloing for image template created that you wish an image be created in the shared image gallery.
 
-<code>
-Invoke-AzResourceAction `\
-  -ResourceName '\<name of image\>' ` # Eample: Win2019_STIG\
-  -ResourceGroupName '\<name of resource group where templates are\>' `\
-  -ResourceType Microsoft.VirtualMachineImages/imageTemplates `\
-  -ApiVersion "2020-02-14" `\
-  -Action Run `\
-  -Force\
-</code>
+```
+    Invoke-AzResourceAction `
+      -ResourceName '<name of image>' ` # Eample: Win2019_STIG
+      -ResourceGroupName '<name of resource group where templates are>' `
+      -ResourceType Microsoft.VirtualMachineImages/imageTemplates `
+      -ApiVersion "2020-02-14" `
+      -Action Run `
+      -Force
+```
