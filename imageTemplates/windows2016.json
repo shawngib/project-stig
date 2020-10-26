@@ -67,6 +67,13 @@
                 ]
             },
             {
+              "type": "PowerShell",
+              "name": "addFeatures",
+              "inline": [
+                "[if(contains(parameters('imageTemplateName'), 'DC'),'Install-WindowsFeature –Name AD-Domain-Services -IncludeManagementTools','get-windowsfeature')]"
+              ]
+            },
+            {
               "type": "File",
               "name": "mofFileDownload",
               "sourceUri": "[parameters('mofUrl')]",
