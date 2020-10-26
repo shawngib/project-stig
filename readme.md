@@ -51,12 +51,12 @@ To deploy the correct resources that enable a base of STIG'd images be created i
     $imageResourceGroup = "<add you resource group name to create>" 
     $deploymentName = "<Add a name of deployment>" + (Get-Random)
     New-AzSubscriptionDeployment `
-    -Name $deploymentName `
-    -Location eastus `
-    -TemplateUri $url `
-    -rgName $imageResourceGroup `
-    -rgLocation eastus `
-    -DeploymentDebugLogLevel All
+      -Name $deploymentName `
+      -Location eastus `
+      -TemplateUri $url `
+      -rgName $imageResourceGroup `
+      -rgLocation eastus `
+      -DeploymentDebugLogLevel All
 ```
 
 At this point you should have the needed resources to create STIG'd images. Run the following for image template created that you wish an image be created in the shared image gallery.

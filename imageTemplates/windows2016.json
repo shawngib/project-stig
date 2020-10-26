@@ -70,7 +70,7 @@
               "type": "PowerShell",
               "name": "addFeatures",
               "inline": [
-                "[if(contains(parameters('imageTemplateName'), 'DC'),'Install-WindowsFeature –Name AD-Domain-Services -IncludeManagementTools','get-windowsfeature')]"
+                "[if(contains(parameters('imageTemplateName'), 'DC'),'Install-WindowsFeature –Name AD-Domain-Services -IncludeManagementTools;','get-windowsfeature;')]"
               ]
             },
             {
@@ -86,10 +86,10 @@
               "destination": "c:\\auditStig.ps1"
             },
             {
-              "type": "File",
+              "type": "PowerShell",
               "name": "SetUpPowerStig",
-              "sourceUri": "[variables('setPowerStigUrl')]",
-              "destination": "c:\\setPowerStig.ps1"
+              "runElevated": true,
+              "scriptUri": "[variables('setPowerStigUrl')]"
             }
           ],
           "distribute": [
