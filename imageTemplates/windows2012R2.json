@@ -54,7 +54,7 @@
             "type": "PlatformImage",
             "publisher": "MicrosoftWindowsServer",
             "offer": "WindowsServer",
-            "sku": "2016-Datacenter",
+            "sku": "2012-R2-Datacenter",
             "version": "latest"
           },
           "customize": [
@@ -111,7 +111,7 @@
             },
             {
               "type": "VHD",
-              "runOutputName": "Win2016_STIG_V1R12"
+              "runOutputName": "Win2012R2_STIG_V2R12"
             }
           ]
         }
