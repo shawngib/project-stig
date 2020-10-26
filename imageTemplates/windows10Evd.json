@@ -97,7 +97,7 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/', parameters('imageTemplateName'),'/versions/1.23')]",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/', parameters('imageTemplateName'),'/versions/1.23.0')]",
               "runOutputName": "[parameters('imageTemplateName')]",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
