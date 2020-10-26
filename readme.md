@@ -44,11 +44,12 @@ Not yet supported by this proejct are:
 
 ### Getting Started
 
-To deploy the correct resources that enable a base of STIG'd inages be created in you subscription run the following:
+To deploy the correct resources that enable a base of STIG'd images be created in you subscription run the following:
 
-```    $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
-    $imageResourceGroup = "\<add you resource group name to create\>" 
-    $deploymentName = "\<Add a name of deployment\>" + (Get-Random)
+```    
+$url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
+    $imageResourceGroup = "<add you resource group name to create>" 
+    $deploymentName = "<Add a name of deployment>" + (Get-Random)
     New-AzSubscriptionDeployment `
     -Name $deploymentName `
     -Location eastus `
@@ -58,7 +59,7 @@ To deploy the correct resources that enable a base of STIG'd inages be created i
     -DeploymentDebugLogLevel All
 ```
 
-At this point you should have the needed resources to create STIG's images. Run the folloing for image template created that you wish an image be created in the shared image gallery.
+At this point you should have the needed resources to create STIG'd images. Run the following for image template created that you wish an image be created in the shared image gallery.
 
 ```
     Invoke-AzResourceAction `
