@@ -105,12 +105,33 @@
             }
         },
         {
-            "name": "windows10STIGtemplate",
+            "name": "imageDefinitionsDeploy",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
                 "imageGalleryDeploy"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('imageDefinitionUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "galleryName":{
+                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "windows10STIGtemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "imageDefinitionsDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -143,7 +164,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageGalleryDeploy"
+                "imageDefinitionsDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -176,7 +197,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageGalleryDeploy"
+                "imageDefinitionsDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -209,7 +230,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageGalleryDeploy"
+                "imageDefinitionsDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -242,7 +263,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageGalleryDeploy"
+                "imageDefinitionsDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
