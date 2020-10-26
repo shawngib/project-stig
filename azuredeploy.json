@@ -153,7 +153,7 @@
                         "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     },
                      "imageTemplateName": {
-                         "value" :"Win10WVDw365_STIG"
+                         "value" :"Win10WVDw365_STIG" 
                      }
                 }
             }
