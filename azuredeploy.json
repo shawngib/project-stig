@@ -110,7 +110,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "managedIdentityDeploy"
+                "imageGalleryDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -138,33 +138,12 @@
             }
         },
         {
-            "name": "imageDefinitionsDeploy",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('rgName')]",
-            "dependsOn": [
-                "imageGalleryDeploy"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('imageDefinitionUrl')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "galleryName":{
-                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
-                    }
-                }
-            }
-        },
-        {
             "name": "windows2019STIGtemplate",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageDefinitionsDeploy","managedIdentityDeploy"
+                "imageGalleryDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -197,7 +176,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageDefinitionsDeploy","managedIdentityDeploy"
+                "imageGalleryDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -230,7 +209,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageDefinitionsDeploy","managedIdentityDeploy"
+                "imageGalleryDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -263,7 +242,7 @@
             "apiVersion": "2019-10-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "imageDefinitionsDeploy","managedIdentityDeploy"
+                "imageGalleryDeploy"
             ],
             "properties": {
                 "mode": "Incremental",
