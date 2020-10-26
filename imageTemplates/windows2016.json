@@ -81,7 +81,7 @@
             {
               "type": "File",
               "name": "SetUpPowerStig",
-              "scriptUri": "[variables('setPowerStigUrl')]",
+              "sourceUri": "[variables('setPowerStigUrl')]",
               "destination": "c:\\setPowerStig.ps1"
             },            
             {
