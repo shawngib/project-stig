@@ -59,3 +59,14 @@ New-AzSubscriptionDeployment \`\
   -DeploymentDebugLogLevel All\
   </code>
 
+At this point you should have the needed resources to create STIG's images. Run the folloing for image template created that you wish an image be created in the shared image gallery.
+
+<code>
+Invoke-AzResourceAction `\
+  -ResourceName '\<name of image\>' ` # Eample: Win2019_STIG\
+  -ResourceGroupName '\<name of resource group where templates are\>' `\
+  -ResourceType Microsoft.VirtualMachineImages/imageTemplates `\
+  -ApiVersion "2020-02-14" `\
+  -Action Run `\
+  -Force\
+</code>
