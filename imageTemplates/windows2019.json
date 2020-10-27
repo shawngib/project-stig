@@ -86,7 +86,7 @@
               "type": "PowerShell",
               "name": "addFeatures",
               "inline": [
-                "[if(contains(parameters('imageTemplateName'), 'DC'),'Install-WindowsFeature –Name AD-Domain-Services -IncludeManagementTools;','get-windowsfeature;')]"
+                "[if(contains(parameters('osRole'), 'DC'),'Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools','get-windowsfeature')]"
               ]
             },
             {
