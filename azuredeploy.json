@@ -13,6 +13,13 @@
       "metadata": {
         "description": "Location for the resourceGroup"
       }
+    },
+    "powerStigVersion": {
+        "type": "string",
+        "metadata": {
+            "description": "Version of PowerSTIG to use. Current default is 4.5.1"
+        },
+        "defaultValue": "4.5.1"
     }
     },
     "functions": [],
@@ -154,6 +161,9 @@
                     },
                      "imageTemplateName": {
                          "value" :"Win10WVDw365_STIG" 
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
                      }
                 }
             }
@@ -187,7 +197,19 @@
                     },
                      "imageTemplateName":  {
                          "value" :"Win2019_STIG"
-                     }
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
+                     },
+                    "stigVersion" : {
+                        "value": "1.15"
+                    },
+                    "osVersion" : {
+                        "value": "2019"
+                    }, 
+                    "osRole": {
+                        "value": "MS"
+                    }
                 }
             }
         },
@@ -220,7 +242,19 @@
                     },
                      "imageTemplateName":  {
                          "value" :"Win2019DC_STIG"
-                     }
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
+                     },
+                    "stigVersion" : {
+                        "value": "1.15"
+                    },
+                    "osVersion" : {
+                        "value": "2019"
+                    }, 
+                    "osRole": {
+                        "value": "DC"
+                    }
                 }
             }
         },
@@ -253,7 +287,19 @@
                     },
                      "imageTemplateName":  {
                          "value" :"Win2016_STIG"
-                     }
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
+                     },
+                    "stigVersion" : {
+                        "value": "1.12"
+                    },
+                    "osVersion" : {
+                        "value": "2016"
+                    }, 
+                    "osRole": {
+                        "value": "MS"
+                    }
                 }
             }
         },
@@ -286,7 +332,19 @@
                     },
                      "imageTemplateName":  {
                          "value" :"Win2016DC_STIG"
-                     }
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
+                     },
+                    "stigVersion" : {
+                        "value": "1.12"
+                    },
+                    "osVersion" : {
+                        "value": "2016"
+                    }, 
+                    "osRole": {
+                        "value": "DC"
+                    }
                 }
             }
         }

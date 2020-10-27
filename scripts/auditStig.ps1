@@ -3,7 +3,15 @@ $audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "
 # Audit runtime
 $TimeStampField = (Get-Date).ToString()
 
-[xml] $STIGxml = Get-Content 'C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\4.5.1\StigData\Processed\WindowsServer-2019-MS-1.5.xml'
+$computerInfo = Get-ComputerInfo
+$powerStigVersion = $env:POWERSTIG_VER
+$domainRole = $env:STIG_OSROLE
+$windowsInstallationType = $computerInfo.WindowsInstallationType
+$model = $env:STIG_OSVER
+$stigVersion = $env:STIG_VER
+
+$xmlPathBuilder = "C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\$powerStigVersion\StigData\Processed\Windows$windowsInstallationType-$model-$domainRole-$stigVersion.xml"
+[xml] $STIGxml = Get-Content $xmlPathBuilder
 $xmlRules = $STIGxml.DISASTIG | Get-Member -MemberType Property | where-object Definition -Like 'System.Xml.XmlElement*'
 $rules = @()
 foreach($ruleType in $xmlRules.Name)
@@ -66,15 +74,19 @@ $sharedKey = $env:WORKSPACE_KEY
 # Specify the name of the record type that you'll be creating
 $LogType = "STIG_Compliance_Computer"
 
-$computerInfo = Get-WmiObject Win32_ComputerSystem
-
 $computerJsonPayload = @{
-    Computer = $computerInfo.Name
-    Manufacturer = $computerInfo.Manufacturer
-    Model = $computerInfo.Model
-    PrimaryOwnerName = $computerInfo.PrimaryOwnerName
+    Computer = $computerInfo.CsName
+    Manufacturer = $computerInfo.CsManufacturer
+    Model = $computerInfo.CsModel
+    PrimaryOwnerName = $computerInfo.CsPrimaryOwnerName
     DesiredState = $audit.InDesiredState
-    Domain = $computerInfo.Domain
+    Domain = $computerInfo.CsDomain
+    Role = $computerInfo.CsDomainRole
+    OS = $computerInfo.WindowsProductName
+    OsVersion = $computerInfo.OsVersion
+    PowerSTIG = $powerStigVersion
+    STIGversion = $stigVersion
+    STIGrole = $domainRole
 }
 
 $json = $computerJsonPayload | ConvertTo-Json
@@ -156,6 +168,7 @@ foreach($findingType in $findingTypes)
             Application = $application
             Description = ""
             Note = $note
+            STIGversion = $stigVersion
         }
         $findings+= $object
     }
@@ -178,13 +191,15 @@ $stiglogType = "STIG_Compliance"
 $jsonPayload = $allFindings | ConvertTo-Json
 Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType
 
+$object = $null
+[nullable[bool]]$desiredState = $null
 $manual = @()
 $jsonPayload = ""
 foreach($manualRule in $STIGxml.DISASTIG.ManualRule.Rule)
 {
      $object = @{
         Computer = $computerInfo.Name
-        DesiredState = ""
+        DesiredState = $desiredState
         ResourceName = ""
         Type = "ManualRuleEntry"
         FindingID = $manualRule.id
@@ -202,8 +217,42 @@ foreach($manualRule in $STIGxml.DISASTIG.ManualRule.Rule)
         Application = ""
         Description = ""
         Note = ""
+        STIGversion = $stigVersion
     }
     $manual += $object
 }
 $jsonPayload = $manual | ConvertTo-Json
+Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType
+
+$object = $null
+[nullable[bool]]$desiredState = $null
+$document = @()
+$jsonPayload = ""
+foreach($documentRule in $STIGxml.DISASTIG.DocumentRule.Rule)
+{
+     $object = @{
+        Computer = $computerInfo.Name
+        DesiredState = $desiredState
+        ResourceName = ""
+        Type = "DocumentRuleEntry"
+        FindingID = $documentRule.id
+        Severity = $documentRule.severity
+        Version = $documentRule.title
+        StartDate = ""
+        ModuleName = ""
+        ModuleVersion = ""
+        ConfigurationName = ""
+        Error = ""
+        FinalState = ""
+        SourceInfo = ""
+        SetBy = "PowerSTIG"
+        Baseline = ""
+        Application = ""
+        Description = ""
+        Note = ""
+        STIGversion = $stigVersion
+    }
+    $document += $object
+}
+$jsonPayload = $document | ConvertTo-Json
 Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType

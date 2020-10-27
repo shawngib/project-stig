@@ -16,6 +16,18 @@
       },
       "imageTemplateName": {
         "type": "string"
+      },
+      "powerStigVersion": {
+        "type": "string"
+      },
+      "stigVersion" : {
+        "type": "string"
+      },
+      "osVersion" : {
+        "type": "string"
+      }, 
+      "osRole": {
+        "type": "string"
       }
     },
     "variables": {
@@ -63,7 +75,11 @@
                 "name": "setEnvVariables",
                 "inline": [
                   "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_ID'',''',reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName')),'2017-03-15-preview').customerId,''',[System.EnvironmentVariableTarget]::Machine)')]",
-                  "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_KEY'',''',listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey,''', [System.EnvironmentVariableTarget]::Machine)')]"
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_KEY'',''',listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey,''', [System.EnvironmentVariableTarget]::Machine)')]",
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''POWERSTIG_VER'',''',parameters('powerStigVersion'),''', [System.EnvironmentVariableTarget]::Machine)')]",
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''STIG_OSVER'',''',parameters('osVersion'),''', [System.EnvironmentVariableTarget]::Machine)')]",
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''STIG_OSROLE'',''',parameters('osRole'),''', [System.EnvironmentVariableTarget]::Machine)')]",
+                  "[concat('[System.Environment]::SetEnvironmentVariable(''STIG_VER'',''',parameters('stigVersion'),''', [System.EnvironmentVariableTarget]::Machine)')]"
                 ]
             },
             {
@@ -104,7 +120,7 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/',parameters('imageTemplateName'),'/versions/1.5.0')]",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/',parameters('imageTemplateName'),'/versions/',parameters('stigVersion'),'.0')]",
               "runOutputName": "[parameters('imageTemplateName')]",
               "artifactTags": {
                 "source": "azureVmImageBuilder",

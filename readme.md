@@ -34,7 +34,7 @@ See [Azure Image Builder](https://docs.microsoft.com/en-us/azure/virtual-machine
 * Windows 2016
 * Windows 2019
 
-Not yet supported by this proejct are:
+Not yet supported by this project are:
 * Ubuntu 18.04
 * Ubuntu 16.04
 * RHEL 7.6, 7.7
