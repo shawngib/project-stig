@@ -25,6 +25,7 @@
     "functions": [],
     "variables": {
         "workspaceUrl": "[uri(deployment().properties.templateLink.uri, 'nested/workspace.json')]",
+        "workspaceDashboardUrl": "[uri(deployment().properties.templateLink.uri, 'nested/dashboard.json')]",
         "managedIdentityUrl": "[uri(deployment().properties.templateLink.uri, 'nested/managedIdentity.json')]",
         "imageGalleryUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageGallery.json')]",
         "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
@@ -65,6 +66,27 @@
                 "parameters": {
                     "name":{
                         "value": "[parameters('rgName')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "workspaceDashboardDeploy",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "workspaceDeploy"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('workspaceDashboardUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "workspaceName":{
+                        "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
                     }
                 }
             }
@@ -164,7 +186,13 @@
                      },
                      "powerStigVersion": {
                          "value": "[parameters('powerStigVersion')]"
-                     }
+                     },
+                    "stigVersion" : {
+                        "value": "1.23"
+                    },
+                    "osVersion" : {
+                        "value": "10"
+                    }
                 }
             }
         },

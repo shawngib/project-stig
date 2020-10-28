@@ -12,6 +12,13 @@ function LogMessage
 mkdir -Path $path
 cd -Path $path
 
+$computerInfo = Get-ComputerInfo
+$powerStigVersion = $env:POWERSTIG_VER
+$domainRole = $env:STIG_OSROLE
+$windowsInstallationType = $computerInfo.WindowsInstallationType
+$model = $env:STIG_OSVER
+$stigVersion = $env:STIG_VER
+
 LogMessage -message "Starting setPowerStig.ps1"
 
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
@@ -19,7 +26,7 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 LogMessage -message "**** Installing PowerStig Module"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Install-Module PowerStig -RequiredVersion 4.5.1 -Force
+Install-Module PowerStig -RequiredVersion $powerStigVersion -Force
 #Install-Module ProcessMitigations -Force -SkipPublisherCheck
 (Get-Module PowerStig -ListAvailable).RequiredModules | % {
     $PSItem | Install-Module -Force
@@ -96,18 +103,22 @@ $customerId = $env:WORKSPACE_ID
 
 # Primary Key
 $sharedKey = $env:WORKSPACE_KEY
-# Specify the name of the record type that you'll be creating
+
 $LogType = "STIG_Compliance_Computer"
 
-$computerInfo = Get-WmiObject Win32_ComputerSystem
-
 $computerJsonPayload = @{
-    Computer = $computerInfo.Name
-    Manufacturer = $computerInfo.Manufacturer
-    Model = $computerInfo.Model
-    PrimaryOwnerName = "ImageBuilder"
-    DesiredState = $false #$audit.InDesiredState ###################################Change back
-    Domain = $computerInfo.Domain
+    Computer = $computerInfo.CsName
+    Manufacturer = $computerInfo.CsManufacturer
+    Model = $computerInfo.CsModel
+    PrimaryOwnerName = $computerInfo.CsPrimaryOwnerName
+    DesiredState = $audit.InDesiredState
+    Domain = $computerInfo.CsDomain
+    Role = $computerInfo.CsDomainRole
+    OS = $computerInfo.WindowsProductName
+    OsVersion = $computerInfo.OsVersion
+    PowerSTIG = $powerStigVersion
+    STIGversion = $stigVersion
+    STIGrole = $domainRole
 }
 $json = $computerJsonPayload | ConvertTo-Json
 $json 4>&1 >> c:\imagebuilder\verbose.txt

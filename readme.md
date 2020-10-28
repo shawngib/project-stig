@@ -3,7 +3,7 @@
 The purpose of this project to test the ability to automate STIG compliance and reporting using Azure services. 
 
 ## STIG Automation POC Primary Goals
-- Microsoft 1st party services
+- Microsoft Azure 1st party services
 - Some level of ongoing reporting
 - As hands free as possible
 - Some level of ongoing maintenance
@@ -48,7 +48,7 @@ To deploy the correct resources that enable a base of STIG'd images be created i
 
 ```    
     $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
-    $imageResourceGroup = "<add you resource group name to create>" 
+    $imageResourceGroup = "<add the resource group name to create>" 
     $deploymentName = "<Add a name of deployment>" + (Get-Random)
     New-AzSubscriptionDeployment `
       -Name $deploymentName `

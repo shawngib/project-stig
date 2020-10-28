@@ -149,7 +149,7 @@ foreach($findingType in $findingTypes)
         }
 
         $object = @{
-            Computer = $computerInfo.Name
+            Computer = $computerInfo.CsName
             DesiredState = $record.InDesiredState
             ResourceName = $record.ResourceName
             Type = $type
@@ -195,64 +195,35 @@ $object = $null
 [nullable[bool]]$desiredState = $null
 $manual = @()
 $jsonPayload = ""
-foreach($manualRule in $STIGxml.DISASTIG.ManualRule.Rule)
+$findingRules = @("ManualRule", "DocumentRule")
+foreach($findingRule in $findingRules)
 {
-     $object = @{
-        Computer = $computerInfo.Name
-        DesiredState = $desiredState
-        ResourceName = ""
-        Type = "ManualRuleEntry"
-        FindingID = $manualRule.id
-        Severity = $manualRule.severity
-        Version = $manualRule.title
-        StartDate = ""
-        ModuleName = ""
-        ModuleVersion = ""
-        ConfigurationName = ""
-        Error = ""
-        FinalState = ""
-        SourceInfo = ""
-        SetBy = "PowerSTIG"
-        Baseline = ""
-        Application = ""
-        Description = ""
-        Note = ""
-        STIGversion = $stigVersion
+    foreach($manualRule in $STIGxml.DISASTIG.($findingRule).Rule)
+    {
+         $object = @{
+            Computer = $computerInfo.CsName
+            DesiredState = $desiredState
+            ResourceName = ""
+            Type = $findingRule
+            FindingID = $manualRule.id
+            Severity = $manualRule.severity
+            Version = $manualRule.title
+            StartDate = ""
+            ModuleName = ""
+            ModuleVersion = ""
+            ConfigurationName = ""
+            Error = ""
+            FinalState = ""
+            SourceInfo = ""
+            SetBy = "PowerSTIG"
+            Baseline = ""
+            Application = ""
+            Description = ""
+            Note = ""
+            STIGversion = $stigVersion
+        }
+        $manual += $object
     }
-    $manual += $object
 }
 $jsonPayload = $manual | ConvertTo-Json
-Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType
-
-$object = $null
-[nullable[bool]]$desiredState = $null
-$document = @()
-$jsonPayload = ""
-foreach($documentRule in $STIGxml.DISASTIG.DocumentRule.Rule)
-{
-     $object = @{
-        Computer = $computerInfo.Name
-        DesiredState = $desiredState
-        ResourceName = ""
-        Type = "DocumentRuleEntry"
-        FindingID = $documentRule.id
-        Severity = $documentRule.severity
-        Version = $documentRule.title
-        StartDate = ""
-        ModuleName = ""
-        ModuleVersion = ""
-        ConfigurationName = ""
-        Error = ""
-        FinalState = ""
-        SourceInfo = ""
-        SetBy = "PowerSTIG"
-        Baseline = ""
-        Application = ""
-        Description = ""
-        Note = ""
-        STIGversion = $stigVersion
-    }
-    $document += $object
-}
-$jsonPayload = $document | ConvertTo-Json
 Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType

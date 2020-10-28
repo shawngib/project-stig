@@ -8,8 +8,8 @@
     },
     "functions": [],
     "variables": {
-        "workspaceName": "[concat(parameters('name'),'-WS-', resourceGroup().location, uniqueString(resourceGroup().id))]",
-        "automationAccountName": "[concat(parameters('name'),'-AA-', uniqueString(resourceGroup().id))]"
+        "workspaceName": "[concat(parameters('name'),'-WS-', resourceGroup().location)]",
+        "automationAccountName": "[concat(parameters('name'),'-AA')]"
     },
     "resources": [
         {

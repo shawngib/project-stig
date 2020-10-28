@@ -1,0 +1,53 @@
+{
+    "contentVersion": "1.0.0.0",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "parameters": {
+      "workbookDisplayName": {
+        "type": "string",
+        "defaultValue": "STIG Compliance",
+        "metadata": {
+          "description": "The friendly name for the workbook that is used in the Gallery or Saved List.  This name must be unique within a resource group."
+        }
+      },
+      "workbookType": {
+        "type": "string",
+        "defaultValue": "workbook",
+        "metadata": {
+          "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
+        }
+      },
+      "workspaceName": {
+        "type": "string",
+        "metadata": {
+          "description": "The id of resource instance to which the workbook will be associated"
+        }
+      },
+      "workbookId": {
+        "type": "string",
+        "defaultValue": "[newGuid()]",
+        "metadata": {
+          "description": "The unique guid for this workbook instance"
+        }
+      }
+    },
+    "variables": {
+        "workbookSourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
+    },
+    "resources": [
+      {
+        "name": "[parameters('workbookId')]",
+        "type": "microsoft.insights/workbooks",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2018-06-17-preview",
+        "dependsOn": [],
+        "kind": "shared",
+        "properties": {
+        "displayName": "[parameters('workbookDisplayName')]",
+        "serializedData": "{\"version\":\"Notebook/1.0\",\"items\":[{\"type\":3,\"content\":{\"version\":\"KqlItem/1.0\",\"query\":\"STIG_Compliance_CL \\r\\n| where TimeGenerated > ago(20m) \\r\\n| distinct Computer, Severity_s, tostring(DesiredState_b), FindingID_s, Note_s, Version_s, STIGversion_s\\r\\n| summarize count() by tostring(DesiredState_b)\\r\\n| render piechart \",\"size\":0,\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\"},\"customWidth\":\"33\",\"name\":\"query - 0\"},{\"type\":3,\"content\":{\"version\":\"KqlItem/1.0\",\"query\":\"STIG_Compliance_CL \\r\\n| where TimeGenerated > ago(20m) \\r\\n| distinct Computer, Severity_s, tostring(DesiredState_b), FindingID_s, Note_s, Version_s, STIGversion_s\\r\\n| project Computer, Severity_s, tostring(DesiredState_b), FindingID_s, Note_s, Version_s, STIGversion_s\",\"size\":0,\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"table\",\"gridSettings\":{\"rowLimit\":10000,\"hierarchySettings\":{\"treeType\":1,\"groupBy\":[\"Computer\",\"Severity_s\",\"DesiredState_b\"]}}},\"customWidth\":\"67\",\"name\":\"query - 1\"},{\"type\":3,\"content\":{\"version\":\"KqlItem/1.0\",\"query\":\"STIG_Compliance_CL \\r\\n| where TimeGenerated > ago(20m) \\r\\n| distinct  Computer, Severity_s, tostring(DesiredState_b), FindingID_s, Note_s, Version_s, STIGversion_s, Type_s\\r\\n| extend Success = case(DesiredState_b == true, \\\"success\\\",\\r\\n                        DesiredState_b == false, \\\"error\\\",\\r\\n                        \\\"question\\\")\\r\\n| project Computer, FindingID_s, Severity_s, tostring(DesiredState_b), Success, Note_s, Type_s, Version_s, STIGversion_s\\r\\n| sort by Computer, FindingID_s asc \",\"size\":2,\"showAnalytics\":true,\"title\":\"STIGs\",\"timeContext\":{\"durationMs\":86400000},\"showExportToExcel\":true,\"exportToExcelOptions\":\"all\",\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"table\",\"showExpandCollapseGrid\":true,\"gridSettings\":{\"formatters\":[{\"columnMatch\":\"Success\",\"formatter\":11}],\"rowLimit\":10000,\"filter\":true,\"labelSettings\":[{\"columnId\":\"Computer\"},{\"columnId\":\"FindingID_s\",\"label\":\"FindingID\"},{\"columnId\":\"Severity_s\",\"label\":\"Severity\"},{\"columnId\":\"DesiredState_b\",\"label\":\"DesiredState\"},{\"columnId\":\"Note_s\",\"label\":\"Note\"},{\"columnId\":\"Version_s\",\"label\":\"Version\"},{\"columnId\":\"STIGversion_s\",\"label\":\"STIGversion\"}]},\"tileSettings\":{\"titleContent\":{\"formatter\":1},\"leftContent\":{\"columnMatch\":\"FindingID_s\"},\"rightContent\":{\"columnMatch\":\"DesiredState_b\"},\"showBorder\":true,\"sortCriteriaField\":\"Computer\",\"sortOrderField\":1},\"graphSettings\":{\"type\":0,\"topContent\":{\"columnMatch\":\"Computer\"},\"nodeIdField\":\"Computer\",\"sourceIdField\":\"FindingID_s\",\"targetIdField\":\"Severity_s\",\"graphOrientation\":3,\"showOrientationToggles\":false,\"nodeSize\":null,\"staticNodeSize\":100,\"colorSettings\":null,\"hivesMargin\":5},\"mapSettings\":{\"locInfo\":\"LatLong\"}},\"name\":\"query - 2\"}],\"isLocked\":false,\"fallbackResourceIds\":[\"/subscriptions/bf031e99-23ef-4cc3-b5a9-b2761eb6126d/resourceGroups/TestSubdeployFifth/providers/Microsoft.OperationalInsights/workspaces/TestSubdeployFifth-WS-eastusxghsknlwaa5je\"]}",
+        "version": "1.0",
+        "sourceId": "[variables('workbookSourceId')]",
+        "category": "[parameters('workbookType')]"
+        }
+      }
+    ]
+}

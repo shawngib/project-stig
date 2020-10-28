@@ -8,3 +8,4 @@ xccdf/
 # ignore temporary VM deploy test scripts
 testDeployVm.ps1
 testDeployVm2.ps1
+deploy.ps1

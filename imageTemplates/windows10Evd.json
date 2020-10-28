@@ -25,9 +25,6 @@
       },
       "osVersion" : {
         "type": "string"
-      }, 
-      "osRole": {
-        "type": "string"
       }
     },
     "variables": {
@@ -78,7 +75,6 @@
                   "[concat('[System.Environment]::SetEnvironmentVariable(''WORKSPACE_KEY'',''',listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey,''', [System.EnvironmentVariableTarget]::Machine)')]",
                   "[concat('[System.Environment]::SetEnvironmentVariable(''POWERSTIG_VER'',''',parameters('powerStigVersion'),''', [System.EnvironmentVariableTarget]::Machine)')]",
                   "[concat('[System.Environment]::SetEnvironmentVariable(''STIG_OSVER'',''',parameters('osVersion'),''', [System.EnvironmentVariableTarget]::Machine)')]",
-                  "[concat('[System.Environment]::SetEnvironmentVariable(''STIG_OSROLE'',''',parameters('osRole'),''', [System.EnvironmentVariableTarget]::Machine)')]",
                   "[concat('[System.Environment]::SetEnvironmentVariable(''STIG_VER'',''',parameters('stigVersion'),''', [System.EnvironmentVariableTarget]::Machine)')]"
                 ]
             },
