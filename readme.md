@@ -70,3 +70,6 @@ At this point you should have the needed resources to create STIG'd images. Run 
       -Action Run `
       -Force
 ```
+### Current Roadmap
+
+As of 10/28/2020 this project is beta but in working order. You can find updates here as they are published.
