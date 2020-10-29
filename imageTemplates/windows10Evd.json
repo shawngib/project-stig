@@ -38,9 +38,7 @@
         "type": "Microsoft.VirtualMachineImages/imageTemplates",
         "apiVersion": "2020-02-14",
         "location": "[resourceGroup().location]",
-        "dependsOn": [
-          
-        ],
+        "dependsOn": [],
         "tags": {
           "imagebuilderTemplate": "AzureImageBuilderSIG",
           "userIdentity": "enabled"
