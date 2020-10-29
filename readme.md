@@ -23,10 +23,12 @@ Basic resources used:
 6. Azure Automation (for future use)
 7. Managed Identity
 
-Resources used in the Image building process:
+Resources used in the Image building and STIG process:
 
-1. PowerSTIG DSC
-2. Custom scripts
+1. PowerSTIG DSC - STIG and AUdit STIG
+2. Custom scripts  
+a. setPowerStig.ps1 = enables DSC and PowerSTIG requirements and creates scheduled task to audit  
+b. audit.ps1 = Audits current state and parses state values to log
 
 ### Current supported OSes
 See [Azure Image Builder](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-overview "Azure Image Builder") for more support information on locations and customization services.
@@ -73,3 +75,7 @@ At this point you should have the needed resources to create STIG'd images. Run 
 ### Current Roadmap
 
 As of 10/28/2020 this project is beta but in working order. You can find updates here as they are published.
+
+##Copyright
+
+Copyright (c) 2020 Microsoft Corporation. All rights reserved
