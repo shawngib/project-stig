@@ -32,7 +32,7 @@
         }
     },
     "variables": {
-      "customizescriptpath": "https://raw.githubusercontent.com/shawngib/project-stig/linux-test/scripts/",
+      "customizescriptpath": "https://raw.githubusercontent.com/shawngib/project-stig/linux-test/scripts/setPowerStigLinux.sh",
       "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
     },
     "resources": [
