@@ -1,4 +1,7 @@
-﻿Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192
+﻿# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192
 $audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof" 
 # Audit runtime
 $TimeStampField = (Get-Date).ToString()

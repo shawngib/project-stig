@@ -1,4 +1,6 @@
-# Creating a logging function to enter steps in the process are logged
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 $path = "c:\imageBuilder"
 $logFile = "$path\setupLog.txt"
 function LogMessage
