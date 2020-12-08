@@ -9,3 +9,5 @@ xccdf/
 testDeployVm.ps1
 testDeployVm2.ps1
 deploy.ps1
+scripts/MOFcreation/WindowsServerMOFcreation.zip
+scripts/setPowerStigLinux.sh
