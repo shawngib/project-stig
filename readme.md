@@ -72,6 +72,9 @@ At this point you should have the needed resources to create STIG'd images. Run 
       -Action Run `
       -Force
 ```
+### Ongoing Maintenance
+While there is little to do ongoing outside of monitoring and reporting updated STIGs which are querterly can be created by simply creating a MOF file as directed by PowerSTIG documentation and a new image template uploaded using [image builder]('https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery'). 
+
 ### Current Roadmap
 
 As of 10/28/2020 this project is beta but in working order. You can find updates here as they are published.
