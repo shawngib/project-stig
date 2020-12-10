@@ -1,0 +1,137 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "mofUrl":{
+          "type": "string"
+      },
+      "identityId": {
+        "type": "string"
+      },
+      "galleryName": {
+        "type": "string"
+      },
+      "workspaceName": {
+        "type": "string"
+      },
+      "imageTemplateName": {
+        "type": "string"
+      },
+      "powerStigVersion": {
+        "type": "string"
+      },
+      "stigVersion" : {
+        "type": "string"
+      },
+      "osVersion" : {
+        "type": "string"
+      },
+        "hyperVGeneration": {
+            "type": "string",
+            "defaultValue": "V1"
+        }
+    },
+    "variables": {
+      "customizescriptpath": "https://raw.githubusercontent.com/shawngib/project-stig/linux-test/scripts/setPowerStigLinux.sh",
+      "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+    },
+    "resources": [
+            {
+                "type": "Microsoft.Compute/galleries/images",
+                "name": "[concat(parameters('galleryName'), '/', parameters('imageTemplateName'))]",
+                "apiVersion": "2019-07-01",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "osType": "Linux",
+                    "osState": "Generalized",
+                    "identifier": {
+                        "publisher": "OpenLogic",
+                        "offer": "CentOS",
+                        "sku": "centos-7-stig",
+                    },
+                    "recommended": {
+                        "vCPUs": {
+                            "min": "2",
+                            "max": "8"
+                        },
+                        "memory": {
+                            "min": "32",
+                            "max": "48"
+                        }
+                    },
+                "hyperVGeneration": "[parameters('hyperVGeneration')]"
+                },
+                "tags": {}
+            },  
+            { 
+            "name": "[concat(parameters('imageTemplateName'),'1')]",
+            "type": "Microsoft.VirtualMachineImages/imageTemplates", 
+            "apiVersion": "2020-02-14", 
+            "location": "[resourceGroup().location]", 
+            "identity":{
+                "type": "UserAssigned",
+                    "userAssignedIdentities": {
+                        "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',parameters('identityId'))]": {}
+                    }
+                },			 
+            "dependsOn": [
+                "[resourceID('Microsoft.Compute/galleries/images/',parameters('galleryName'),parameters('imageTemplateName'))]"
+            ],
+            "tags": {
+            "imagebuilderTemplate": "AzureImageBuilderSIG",
+            "userIdentity": "enabled"
+            }, 
+            "properties": { 
+                "buildTimeoutInMinutes": 100, 
+                "vmProfile": 
+                    {
+                    "vmSize": "Standard_D1_v2",
+                    "osDiskSizeGB": 100
+                    },
+                "source": {
+                    "type": "PlatformImage",
+                    "publisher": "OpenLogic",
+                    "offer": "CentOS",
+                    "sku": "7_8",
+                    "version": "latest"
+                }, 
+                "customize": [
+                    {
+                        "type": "Shell",
+                        "name": "Update",
+                        "inline": [
+                            "sudo touch /etc/profile.d/imagebuilder.sh",
+                            "[concat('sudo echo ''export WORKSPACE_ID=',reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName')),'2017-03-15-preview').customerId,''' >> /etc/profile.d/imagebuilder.sh')]",
+                            "[concat('sudo echo ''export WORKSPACE_KEY=',listKeys(variables('wsResourceId'), '2015-11-01-preview').primarySharedKey,''' >> /etc/profile.d/imagebuilder.sh')]",
+                            "[concat('sudo echo ''export POWERSTIG_VER=', parameters('powerStigVersion'),''' >> /etc/profile.d/imagebuilder.sh')]",
+                            "[concat('sudo echo ''export STIG_OSVER=', parameters('osVersion'),''' >> /etc/profile.d/imagebuilder.sh')]",
+                            "[concat('sudo echo ''export STIG_VER=', parameters('stigVersion'),''' >> /etc/profile.d/imagebuilder.sh')]",
+                            "sudo yum update"
+                        ]
+                    },
+                    {
+                        "type": "Shell",
+                        "name": "scriptRun",
+                        "scriptUri": "[variables('customizescriptpath')]"
+                    }
+                ], 
+                "distribute": [
+                    {
+                    "type": "SharedImage",
+                    "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/', parameters('imageTemplateName'),'/versions/1.0.1')]",
+                    "runOutputName": "[parameters('imageTemplateName')]",
+                    "artifactTags": {
+                        "source": "azureVmImageBuilder",
+                        "baseosimg": "linux"
+                    },
+                    "replicationRegions": [
+                        "eastus",
+                        "eastus2",
+                        "southcentralus"
+                    ]
+                    }
+                ] 
+            } 
+        }
+    ]
+  }

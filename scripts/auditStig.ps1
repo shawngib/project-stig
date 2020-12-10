@@ -7,6 +7,7 @@ $audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "
 $TimeStampField = (Get-Date).ToString()
 
 $computerInfo = Get-ComputerInfo
+$instanceData = Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET -Uri http://169.254.169.254/metadata/instance?api-version=2020-06-01
 $powerStigVersion = $env:POWERSTIG_VER
 $domainRole = $env:STIG_OSROLE
 $windowsInstallationType = $computerInfo.WindowsInstallationType
@@ -39,7 +40,7 @@ Function Build-Signature ($customerId, $sharedKey, $date, $contentLength, $metho
     $authorization = 'SharedKey {0}:{1}' -f $customerId,$encodedHash
     return $authorization
 }
-Function Post-LogAnalyticsData($customerId, $sharedKey, $body, $logType)
+Function Post-LogAnalyticsData($customerId, $sharedKey, $body, $logType, $resourceId)
 {
     $method = "POST"
     $contentType = "application/json"
@@ -61,6 +62,7 @@ Function Post-LogAnalyticsData($customerId, $sharedKey, $body, $logType)
         "Log-Type" = $logType;
         "x-ms-date" = $rfc1123date;
         "time-generated-field" = $TimeStampField;
+        "x-ms-AzureResourceId" = $resourceId;
     }
 
     $response = Invoke-WebRequest -Uri $uri -Method $method -ContentType $contentType -Headers $headers -Body $body -UseBasicParsing
@@ -90,11 +92,14 @@ $computerJsonPayload = @{
     PowerSTIG = $powerStigVersion
     STIGversion = $stigVersion
     STIGrole = $domainRole
+    TagsList = $instanceData.compute.tags
+    SecureBoot = $instanceData.compute.securityProfile.secureBootEnabled
+    TPM = $instanceData.compute.securityProfile.virtualTpmEnabled
 }
 
 $json = $computerJsonPayload | ConvertTo-Json
 
-Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
+Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType -resourceId $instanceData.compute.resourceId
 
 $LogType = "STIG_Compliance"
 $findings = @()
@@ -192,7 +197,8 @@ foreach($trueFinding in $findings)
 }
 $stiglogType = "STIG_Compliance"
 $jsonPayload = $allFindings | ConvertTo-Json
-Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType
+Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType -resourceId $instanceData.compute.resourceId
+
 
 $object = $null
 [nullable[bool]]$desiredState = $null
@@ -229,4 +235,5 @@ foreach($findingRule in $findingRules)
     }
 }
 $jsonPayload = $manual | ConvertTo-Json
-Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType
+Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($jsonPayload)) -logType $stiglogType -resourceId $instanceData.compute.resourceId
+
