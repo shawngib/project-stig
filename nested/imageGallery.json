@@ -7,7 +7,7 @@
         }
     },
     "variables": {
-        "imageGalleryName":"[concat(replace(parameters('name'),'-',''), '_SIG_', substring(uniqueString(resourceGroup().id),0,6))]"
+        "imageGalleryName":"[concat(replace(parameters('name'),'-',''), 'SIG', substring(uniqueString(resourceGroup().id),0,6))]"
     },
     "resources": [
         {
