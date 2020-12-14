@@ -1,6 +1,19 @@
 # Create Custom STIG Images
 
-The purposes of this project to test the ability to automate STIG compliance and reporting using Azure services. 
+At Microsoft, our security and compliance story is one of our greatest differentiators. Microsoft recognizes the criticality of security compliance accreditations for Defense Industrial Base (DIB) and Department of Defense (DoD) customers. Maintaining Defense Information Systems Agency (DISA) Security Technical Implementation Guides (STIGs) compliance is critical and often time consuming. Azure provides automation and compliance dashboarding capabilities at cloud speed and scale, allowing customers to shortcut the heavy costs of compliance when they choose Azure.  
+
+
+ 
+
+
+The Azure Team has created sample solutions using first-party Azure tooling to deliver STIG automation and compliance reporting. The STIG
+Automation GitHub Repository, enables customers to: 
+
+	
+* Automate STIG implementation and baseline updates with Azure Image Builder  
+
+	
+* Visualize compliance with Azure Monitor Log Analytics or Sentinel 
 
 ## STIG Automation POC Primary Goals
 - Microsoft Azure 1st party services
@@ -11,7 +24,7 @@ The purposes of this project to test the ability to automate STIG compliance and
 ### Current Architecture
 ![](./images/architecture.jpg)
 
-The overall architecture is to use a set of resources deployed via nested ARM templates from this repo. The result is an automated VM image creation via Azure Image Builder and final STIG'd images stored in the resource groups Shared Image Gallery for use in that subscription.
+The overall architecture is to use a set of resources deployed via nested ARM templates from this repo. The result is an automated VM image creation via Azure Image Builder and final STIG'd images stored in the resource groups Shared Image Gallery for use in that subscription. Logging is the HTTPS ingestion API for Log Analytics and DSC Audit logs of PowerSTIG and it will not interfere with any agents monitoring for other purposes.
 
 Basic resources used:
 
@@ -22,6 +35,7 @@ Basic resources used:
 5. Log Analytics Workspace
 6. Azure Automation (for future use)
 7. Managed Identity
+8. Azure Workbook for Sentinel and Log Analytics
 
 Resources used in the Image building and STIG process:
 
@@ -31,6 +45,12 @@ a. setPowerStig.ps1 = enables DSC and PowerSTIG requirements and creates schedul
 b. audit.ps1 = Audits current state and parses state values to log for Windows  
 c. Desired state MOF files, one for each image required  
 d. Image Definition files, one for each
+
+Resources used in the reporting and deployed as part of solution:
+1. Log Analytics Wrokspace - logged telemtry varies per OS
+2. 2 x Log Analytics workbooks, one for use in Sentinel.
+*Note: Logging by default is over public network, for isolated system please set up a [private link to Azure Monitor.]('https://docs.microsoft.com/en-us/azure/azure-monitor/platform/private-link-security')*
+
 
 ### Current supported OSes
 See [Azure Image Builder](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery "Azure Image Builder") for more support information on locations and customization services.
@@ -89,6 +109,10 @@ At this point you should have the needed resources to create STIG'd images. Run 
       -Action Run `
       -Force
 ```
+###
+Once virtual machines are deployed they start to report in to the Log Analytics Workspace and the following workbook can be viewed:
+![](./images/workbook.jpg)
+
 ### Ongoing Maintenance
 While there is little to do ongoing outside of monitoring and reporting updated STIGs which are quarterly can be created by simply creating a MOF file as directed by PowerSTIG documentation and a new image template uploaded using [image builder]('https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery'). 
 
