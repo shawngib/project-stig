@@ -38,20 +38,7 @@
                     "name": "Free"
                 }
             }
-        },
-        {
-          "apiVersion": "2015-11-01-preview",
-          "type": "Microsoft.OperationalInsights/workspaces/linkedServices",
-          "name": "[concat(variables('workspaceName'), '/' , 'Automation')]",
-          "location": "eastus",
-          "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
-            "[concat('Microsoft.Automation/automationAccounts/', variables('automationAccountName'))]"
-          ],
-          "properties": {
-            "resourceId": "[resourceId('Microsoft.Automation/automationAccounts/', variables('automationAccountName'))]"
-          }
-        }        
+        }      
     ],
     "outputs": {
         "workspaceName": {
