@@ -64,14 +64,14 @@
           "type": "Microsoft.OperationsManagement/solutions",
           "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('solutionArray').solutions[copyIndex()].Name)]",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workbookDisplayName'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
           ],
           "copy": {
             "name": "solutionCopy",
             "count": "[length(variables('solutionArray').solutions)]"
           },
           "properties": {
-            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workbookDisplayName'))]"
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
           },
           "plan": {
             "name": "[variables('solutionArray').solutions[copyIndex()].Name]",

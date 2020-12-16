@@ -49,7 +49,8 @@ d. Image Definition files, one for each
 Resources used in the reporting and deployed as part of solution:
 1. Log Analytics Wrokspace - logged telemtry varies per OS
 2. 2 x Log Analytics workbooks, one for use in Sentinel.
-*Note: Logging by default is over public network, for isolated system please set up a [private link to Azure Monitor.]('https://docs.microsoft.com/en-us/azure/azure-monitor/platform/private-link-security')*
+3. Sentinel Solution - connects workspace to Sentinel   
+*Note: Logging by default is over public network, for isolated systems please set up a [private link to Azure Monitor.]('https://docs.microsoft.com/en-us/azure/azure-monitor/platform/private-link-security')*
 
 
 ### Current supported OSes
