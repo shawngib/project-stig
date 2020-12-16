@@ -48,9 +48,10 @@ c. Desired state MOF files, one for each image required.
 d. Image Definition files, one for each.
 
 Resources used in the reporting and deployed as part of solution:
-1. Log Analytics Workspace - logged telemetry varies per OS.
+1. Log Analytics Workspace - logged telemetry varies per OS. See [here]('https://azure.microsoft.com/en-us/pricing/details/monitor/') for Azure Monitor Log Analytics pricing.
 2. 2 x Log Analytics workbooks, one for use in Sentinel.
-3. Sentinel Solution - connects workspace to Sentinel.   
+3. Sentinel Solution - connects workspace to Sentinel.  See [here]('https://azure.microsoft.com/en-us/pricing/details/azure-sentinel/') for Sentinel pricing. This connector can be removed and the workbook used in Log Analytics if desired.
+
 *Note: Logging by default is over public network, for isolated systems please set up a [private link to Azure Monitor.]('https://docs.microsoft.com/en-us/azure/azure-monitor/platform/private-link-security')*
 
 
