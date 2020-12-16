@@ -11,7 +11,7 @@
       },
       "workbookType": {
         "type": "string",
-        "defaultValue": "workbook",
+        "defaultValue": "sentinel",
         "metadata": {
           "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
         }
@@ -31,7 +31,15 @@
       }
     },
     "variables": {
-        "workbookSourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
+        "workbookSourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]",
+         "solutionArray": {
+          "solutions" : [
+            {
+            "name": "[concat('SecurityInsights', '(', parameters('workspaceName'), ')')]",
+            "galleryName": "SecurityInsights"
+            }     
+          ]
+         }
     },
     "resources": [
       {
@@ -48,6 +56,29 @@
         "sourceId": "[variables('workbookSourceId')]",
         "category": "[parameters('workbookType')]"
         }
-      }
+      },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[resourceGroup().location]",
+          "name": "[concat(variables('solutionArray').solutions[copyIndex()].Name)]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('solutionArray').solutions[copyIndex()].Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workbookDisplayName'))]"
+          ],
+          "copy": {
+            "name": "solutionCopy",
+            "count": "[length(variables('solutionArray').solutions)]"
+          },
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workbookDisplayName'))]"
+          },
+          "plan": {
+            "name": "[variables('solutionArray').solutions[copyIndex()].Name]",
+            "publisher": "Microsoft",
+            "promotionCode": "",
+            "product": "[concat('OMSGallery/', variables('solutionArray').solutions[copyIndex()].galleryName)]"
+          }
+        }
     ]
 }
