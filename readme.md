@@ -36,20 +36,21 @@ Basic resources used:
 6. Azure Automation (for future use)
 7. Managed Identity
 8. Azure Workbook for Sentinel and Log Analytics
+9. PowerShell during creation and for reporting audits. *Note: This is scheduled every 20 minutes and can be modified prior to deploying in the setPowerStig.ps1 script on the second to last line.*
 
 Resources used in the Image building and STIG process:
 
 1. [PowerSTIG DSC]('https://github.com/microsoft/PowerStig') - STIG and Audit STIG
 2. Custom scripts  
-a. setPowerStig.ps1 = enables DSC and PowerSTIG requirements and creates scheduled task to audit for Windows  
-b. audit.ps1 = Audits current state and parses state values to log for Windows  
-c. Desired state MOF files, one for each image required  
-d. Image Definition files, one for each
+a. setPowerStig.ps1 = enables DSC and PowerSTIG requirements and creates scheduled task to audit for Windows.  
+b. audit.ps1 = Audits current state and parses state values to log for Windows.  
+c. Desired state MOF files, one for each image required.  
+d. Image Definition files, one for each.
 
 Resources used in the reporting and deployed as part of solution:
-1. Log Analytics Wrokspace - logged telemtry varies per OS
+1. Log Analytics Workspace - logged telemetry varies per OS.
 2. 2 x Log Analytics workbooks, one for use in Sentinel.
-3. Sentinel Solution - connects workspace to Sentinel   
+3. Sentinel Solution - connects workspace to Sentinel.   
 *Note: Logging by default is over public network, for isolated systems please set up a [private link to Azure Monitor.]('https://docs.microsoft.com/en-us/azure/azure-monitor/platform/private-link-security')*
 
 
@@ -71,7 +72,7 @@ Not yet supported by this project are:
 
 To deploy the correct resources that enable a base of STIG'd images be created in your subscription run the following:
 
-Ensure you have the required resource registrations in your subscription:
+1. Ensure you have the required resource registrations in your subscription:
 
 ```
 Register-AzProviderFeature -FeatureName VirtualMachineTemplatePreview -ProviderNamespace Microsoft.VirtualMachineImages
@@ -80,7 +81,7 @@ Register-AzResourceProvider Microsoft.VirtualMachineImages
 Register-AzResourceProvider Microsoft.Compute
 Register-AzResourceProvider Microsoft.Storage
 ```
-
+2. Deploy the solution to create the images:
 ```    
     $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
     $imageResourceGroup = "<add the resource group name to create>" 
@@ -93,8 +94,9 @@ Register-AzResourceProvider Microsoft.Storage
       -rgLocation eastus `
       -DeploymentDebugLogLevel All
 ```
+3. Create the images:
 
-At this point you should have the needed resources to create STIG'd images. Run the following for each image template created that you wish an image to be created in the shared image gallery. This automation includes:
+At this point you should have the needed resources to create STIG'd images. Run the following for each image template created that you wish an image to be created in the shared image gallery. These are a result of the image template json files in the imageTemplate folder. These files also reflect how and where to create images and/or VHDs.  This automation includes:
 - Windows 10 STIG v1r23 - 'Win10WVDw365_STIG'
 - Windows Server 2019 v1r5 - 'Win2019_STIG'
 - Windows Server 2019 Domain Controller v1r5 - 'Win2019DC_STIG'
@@ -103,15 +105,25 @@ At this point you should have the needed resources to create STIG'd images. Run 
 
 ```
     Invoke-AzResourceAction `
-      -ResourceName '<name of image>' ` # Eample: Win2019_STIG
+      -ResourceName '<name of image>' ` # Example: Win2019_STIG
       -ResourceGroupName '<name of resource group where templates are>' `
       -ResourceType Microsoft.VirtualMachineImages/imageTemplates `
       -ApiVersion "2020-02-14" `
       -Action Run `
       -Force
 ```
+4. Confirm images are created. In the resource group you can find the Share Image Gallery which will be named after you resource group and appened with -SIG-(6 random characters). Here you should see the 5 image definitions, by selecting one you should see the created images:
+![](./images/winser2019image.jpg)
+
+*Note: A VHD copy is also sysprepped and stored in the image builders resource groups storage account. The name starts with IT_ and has your RG name and the definition name followed by a random GUID. example: IT_STIG_DEMO_Win2019_STIG_de6b0de8-5766-4e3d-9488-66b510fedb79*
+
+5. Test the image by selecting 'Create VM' in the image gallery image view blade.
+
+6. After a VM is created and running you view the logs created in the Log Ananlytics workspace that was created as part of the deployment. A schduled task has been added to the images which will run every 20 minutes which audits the PowerSTIG DSC resource and parses the response to send to the LA workspaces rest API. Two custom logs are created, the first is 'STIG_Compliance_Computer_CL 
+' and represents each VM with some additional telemetry about the VM and the second is 'STIG_Compliance_CL' which represents each control and includes document and/or manual controls. More detail about the logs to come soon.
+
 ###
-Once virtual machines are deployed they start to report in to the Log Analytics Workspace and the following workbook can be viewed:
+Once virtual machines are deployed, they start to report in to the Log Analytics Workspace and the following workbook can be viewed:
 ![](./images/workbook.jpg)
 
 ### Ongoing Maintenance
@@ -157,6 +169,6 @@ New-AzGalleryImageDefinition `
 
 As of 10/28/2020 this project is beta but in working order. You can find updates here as they are published.
 
-##Copyright
+### Copyright
 
 Copyright (c) 2020 Microsoft Corporation. All rights reserved.

@@ -1,8 +1,8 @@
 /*
 @TargetNode='localhost'
-@GeneratedBy=adminuser
+@GeneratedBy=User
 @GenerationDate=10/07/2020 13:39:21
-@GenerationHost=test2019STIGing
+@GenerationHost=WindowsServer2019v1r5
 */
 
 instance of NTFSAccessControlEntry as $NTFSAccessControlEntry1ref
