@@ -96,7 +96,7 @@ Register-AzResourceProvider Microsoft.Storage
 ```
 3. Create the images:
 
-At this point you should have the needed resources to create STIG'd images. Run the following for each image template created that you wish an image to be created in the shared image gallery. These are a result of the image template json files in the imageTemplate folder. These files also reflect how and where to create images and/or VHDs.  This automation includes:
+At this point you should have the needed resources to create STIG'd images. Run the following for each image template created that you wish an image to be created in the shared image gallery. These are a result of the image template json files in the imageTemplate folder. These files also reflect how and where to create images and/or VHDs.  This automation includes these 5 images with the following names:
 - Windows 10 STIG v1r23 - 'Win10WVDw365_STIG'
 - Windows Server 2019 v1r5 - 'Win2019_STIG'
 - Windows Server 2019 Domain Controller v1r5 - 'Win2019DC_STIG'
@@ -105,7 +105,7 @@ At this point you should have the needed resources to create STIG'd images. Run 
 
 ```
     Invoke-AzResourceAction `
-      -ResourceName '<name of image>' ` # Example: Win2019_STIG
+      -ResourceName '<name of image from above>' ` # Example: Win2019_STIG
       -ResourceGroupName '<name of resource group where templates are>' `
       -ResourceType Microsoft.VirtualMachineImages/imageTemplates `
       -ApiVersion "2020-02-14" `
@@ -124,7 +124,7 @@ At this point you should have the needed resources to create STIG'd images. Run 
 
 ###
 Once virtual machines are deployed, they start to report in to the Log Analytics Workspace and the following workbook can be viewed:
-![](./images/workbook.jpg)
+![](./images/sentinelworkbook.jpg)
 
 ### Ongoing Maintenance
 While there is little to do ongoing outside of monitoring and reporting updated STIGs which are quarterly can be created by simply creating a MOF file as directed by PowerSTIG documentation and a new image template uploaded using [image builder]('https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery'). 
@@ -163,11 +163,13 @@ New-AzGalleryImageDefinition `
    -Offer 'WindowsServer' `
    -Sku 'WinSrv2019'
 ```
-
+*Note: Naming is important since image templates are not idempotent. Also versioning is important, for example our deployment uses the STIG version to properly audit with PowerSTIG and to place the newly created images in the image gallery.*
 
 ### Current Roadmap
 
 As of 10/28/2020 this project is beta but in working order. You can find updates here as they are published.
+
+12/16/2020 - Publish first release for consumption. To do items include full how-to wiki and additional image templates for broader coverage.
 
 ### Copyright
 
