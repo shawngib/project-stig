@@ -40,7 +40,7 @@ Basic resources used:
 
 Resources used in the Image building and STIG process:
 
-1. [PowerSTIG DSC]('https://github.com/microsoft/PowerStig') - STIG and Audit STIG
+1. <a href="https://github.com/microsoft/PowerStig">PowerSTIG DSC</a> - STIG and Audit STIG
 2. Custom scripts  
 a. setPowerStig.ps1 = enables DSC and PowerSTIG requirements and creates scheduled task to audit for Windows.  
 b. audit.ps1 = Audits current state and parses state values to log for Windows.  
@@ -48,7 +48,7 @@ c. Desired state MOF files, one for each image required.
 d. Image Definition files, one for each.
 
 Resources used in the reporting and deployed as part of solution:
-1. Log Analytics Workspace - logged telemetry varies per OS. See [here]('https://azure.microsoft.com/en-us/pricing/details/monitor/') for Azure Monitor Log Analytics pricing.
+1. Log Analytics Workspace - logged telemetry varies per OS. See [here](https://azure.microsoft.com/en-us/pricing/details/monitor/) for Azure Monitor Log Analytics pricing.
 2. 2 x Log Analytics workbooks, one for use in Sentinel.
 3. Sentinel Solution - connects workspace to Sentinel.  See [here](https://azure.microsoft.com/en-us/pricing/details/azure-sentinel/) for Sentinel pricing. This connector can be removed and the workbook used in Log Analytics if desired.
 
@@ -128,11 +128,11 @@ Once virtual machines are deployed, they start to report in to the Log Analytics
 ![](./images/sentinelworkbook.jpg)
 
 ### Ongoing Maintenance
-While there is little to do ongoing outside of monitoring and reporting updated STIGs which are quarterly can be created by simply creating a MOF file as directed by PowerSTIG documentation and a new image template uploaded using [image builder]('https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery'). 
+While there is little to do ongoing outside of monitoring and reporting updated STIGs which are quarterly can be created by simply creating a MOF file as directed by PowerSTIG documentation and a new image template uploaded using [image builder](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery). 
 
 Specifically, when new STIG's are released or updated, you'll need do three things. 
-- First create a MOF file which will be used by desired state configuration (DSC), one used for WS 2019 can be found [here]('https://github.com/shawngib/project-stig/blob/master/scripts/MOFcreation/WindowsServer2019v1r5.ps1'). It is a [PowerStig]('https://github.com/microsoft/PowerStig') DSC configuration script. Note: Pay close attention to naming convention of the configuration file since it will be the name of the output MOF file.
-- create a new [image definition template]('https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json?toc=/azure/virtual-machines/windows/toc.json&bc=/azure/virtual-machines/windows/breadcrumb/toc.json'). An example can be found [here]('https://github.com/shawngib/project-stig/blob/master/imageTemplates/windows2019.json'). Note: the example template is designed to operate as a nested template for the solution but can be adapted to run separately with some modifications.
+- First create a MOF file which will be used by desired state configuration (DSC), one used for WS 2019 can be found [here](https://github.com/shawngib/project-stig/blob/master/scripts/MOFcreation/WindowsServer2019v1r5.ps1). It is a [PowerStig](https://github.com/microsoft/PowerStig) DSC configuration script. Note: Pay close attention to naming convention of the configuration file since it will be the name of the output MOF file.
+- create a new [image definition template](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json?toc=/azure/virtual-machines/windows/toc.json&bc=/azure/virtual-machines/windows/breadcrumb/toc.json). An example can be found [here](https://github.com/shawngib/project-stig/blob/master/imageTemplates/windows2019.json). Note: the example template is designed to operate as a nested template for the solution but can be adapted to run separately with some modifications.
 
 
 Sample PowerShell to upload the new image definition:
