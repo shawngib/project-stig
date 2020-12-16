@@ -50,9 +50,9 @@ d. Image Definition files, one for each.
 Resources used in the reporting and deployed as part of solution:
 1. Log Analytics Workspace - logged telemetry varies per OS. See [here]('https://azure.microsoft.com/en-us/pricing/details/monitor/') for Azure Monitor Log Analytics pricing.
 2. 2 x Log Analytics workbooks, one for use in Sentinel.
-3. Sentinel Solution - connects workspace to Sentinel.  See [here]('https://azure.microsoft.com/en-us/pricing/details/azure-sentinel/') for Sentinel pricing. This connector can be removed and the workbook used in Log Analytics if desired.
+3. Sentinel Solution - connects workspace to Sentinel.  See [here](https://azure.microsoft.com/en-us/pricing/details/azure-sentinel/) for Sentinel pricing. This connector can be removed and the workbook used in Log Analytics if desired.
 
-*Note: Logging by default is over public network, for isolated systems please set up a [private link to Azure Monitor.]('https://docs.microsoft.com/en-us/azure/azure-monitor/platform/private-link-security')*
+*Note: Logging by default is over public network, for isolated systems please set up a [private link to Azure Monitor.](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/private-link-security)*
 
 
 ### Current supported OSes
@@ -172,6 +172,6 @@ As of 10/28/2020 this project is beta but in working order. You can find updates
 
 12/16/2020 - Publish first release for consumption. To do items include full how-to wiki and additional image templates for broader coverage.
 
-### Copyright
+Copyright
 
 Copyright (c) 2020 Microsoft Corporation. All rights reserved.
