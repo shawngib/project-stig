@@ -31,15 +31,7 @@
       }
     },
     "variables": {
-        "workbookSourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]",
-         "solutionArray": {
-          "solutions" : [
-            {
-            "name": "[concat('SecurityInsights', '(', parameters('workspaceName'), ')')]",
-            "galleryName": "SecurityInsights"
-            }     
-          ]
-         }
+        "workbookSourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
     },
     "resources": [
       {
@@ -56,29 +48,6 @@
         "sourceId": "[variables('workbookSourceId')]",
         "category": "[parameters('workbookType')]"
         }
-      },
-        {
-          "apiVersion": "2015-11-01-preview",
-          "location": "[resourceGroup().location]",
-          "name": "[concat(variables('solutionArray').solutions[copyIndex()].Name)]",
-          "type": "Microsoft.OperationsManagement/solutions",
-          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('solutionArray').solutions[copyIndex()].Name)]",
-          "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
-          ],
-          "copy": {
-            "name": "solutionCopy",
-            "count": "[length(variables('solutionArray').solutions)]"
-          },
-          "properties": {
-            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
-          },
-          "plan": {
-            "name": "[variables('solutionArray').solutions[copyIndex()].Name]",
-            "publisher": "Microsoft",
-            "promotionCode": "",
-            "product": "[concat('OMSGallery/', variables('solutionArray').solutions[copyIndex()].galleryName)]"
-          }
-        }
+      }
     ]
 }
