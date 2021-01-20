@@ -14,7 +14,15 @@ $windowsInstallationType = $computerInfo.WindowsInstallationType
 $model = $env:STIG_OSVER
 $stigVersion = $env:STIG_VER
 
-$xmlPathBuilder = "C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\$powerStigVersion\StigData\Processed\Windows$windowsInstallationType-$model-$domainRole-$stigVersion.xml"
+If ($windowsInstallationType -eq 'Client')
+{
+    $xmlPathBuilder = "C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\$powerStigVersion\StigData\Processed\Windows$windowsInstallationType-$model-$stigVersion.xml"
+}
+Else
+{
+    $xmlPathBuilder = "C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\$powerStigVersion\StigData\Processed\Windows$windowsInstallationType-$model-$domainRole-$stigVersion.xml"
+}
+
 [xml] $STIGxml = Get-Content $xmlPathBuilder
 $xmlRules = $STIGxml.DISASTIG | Get-Member -MemberType Property | where-object Definition -Like 'System.Xml.XmlElement*'
 $rules = @()
