@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192
-$audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof" 
+
 # Audit runtime
 $TimeStampField = (Get-Date).ToString()
 
@@ -17,11 +17,13 @@ $stigVersion = $env:STIG_VER
 If ($windowsInstallationType -eq 'Client')
 {
     $xmlPathBuilder = "C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\$powerStigVersion\StigData\Processed\Windows$windowsInstallationType-$model-$stigVersion.xml"
+    Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass -Force
 }
 Else
 {
     $xmlPathBuilder = "C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\$powerStigVersion\StigData\Processed\Windows$windowsInstallationType-$model-$domainRole-$stigVersion.xml"
 }
+$audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof" 
 
 [xml] $STIGxml = Get-Content $xmlPathBuilder
 $xmlRules = $STIGxml.DISASTIG | Get-Member -MemberType Property | where-object Definition -Like 'System.Xml.XmlElement*'

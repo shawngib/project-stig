@@ -33,10 +33,10 @@ Install-Module PowerStig -RequiredVersion $powerStigVersion -Force
 (Get-Module PowerStig -ListAvailable).RequiredModules | % {
     $PSItem | Install-Module -Force
  } 
- if((Get-ComputerInfo).OsProductType -eq 'WorkStation') 
+ if((Get-ComputerInfo).WindowsInstallationType -eq 'Client') 
  {
     LogMessage -message "**** Setting execution policy"
-    Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force # Windows 10 only
+    Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass -Force # Windows 10 only
  }
 LogMessage -message "**** Importing PowerStig Module"
 Import-Module PowerStig -Force
