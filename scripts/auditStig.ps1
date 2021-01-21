@@ -3,7 +3,6 @@
 
 Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192
 
-# Audit runtime
 $TimeStampField = (Get-Date).ToString()
 
 $computerInfo = Get-ComputerInfo
@@ -23,6 +22,17 @@ Else
 {
     $xmlPathBuilder = "C:\Program Files\WindowsPowerShell\Modules\PowerSTIG\$powerStigVersion\StigData\Processed\Windows$windowsInstallationType-$model-$domainRole-$stigVersion.xml"
 }
+# Added this check for DSC current status to prevent from failing the audit and moving on only to report manual or document rules
+### TODO: Needs a test for timing and break script and report failure
+if((Get-DscLocalConfigurationManager).LCMState -eq "Busy") {
+    do {
+        start-sleep -s 10
+        $dscState = (Get-DscLocalConfigurationManager).LCMState
+    }until($dscState -ne "Busy")
+}
+
+# Audit runtime
+### TODO: Audit should test current DSC LCM state and puase if processing another request. ex: 'Get-DscLocalConfigurationManager'
 $audit = Test-DscConfiguration -ComputerName localhost -ReferenceConfiguration "c:\localhost.mof" 
 
 [xml] $STIGxml = Get-Content $xmlPathBuilder

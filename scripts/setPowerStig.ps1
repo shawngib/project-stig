@@ -126,6 +126,8 @@ $json = $computerJsonPayload | ConvertTo-Json
 $json 4>&1 >> c:\imagebuilder\verbose.txt
 Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
 
+# Setup scheduled task to run auditing script that reports to LA workspace
+### TODO: Consider frequency requirements set here for every 20 minutes for testing but possibly should be simply daily. This also changes dashboard queries which limit to last 30 minutes.
 $STName = "PowerSTIG Audit Task"
 $STPath = "\PowerSTIG"
 $scheduleObject = New-Object -ComObject schedule.service
