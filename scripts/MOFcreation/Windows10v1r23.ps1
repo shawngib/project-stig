@@ -13,9 +13,6 @@ configuration Windows10v1r23
                 'V-63597' = @{
                     ValueData = '1' # Required for using Azure Image Builder access to creation
                 }
-                'V-' = @{
-                    Identity = 'Guests' 
-                }
                 'V-63871' = @{
                     Identity = 'Guests' 
                 }
