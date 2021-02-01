@@ -1,0 +1,17 @@
+WARNING: Windows_Server_2019_DC_STIG: V-205810/RegistryRule/medium will be Skipped as specified by the configuration
+WARNING: Windows_Server_2019_DC_STIG: V-205648.a/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205648.b/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205648.c/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205648.d/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205649.a/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205649.b/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205650.a/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205650.b/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205909/SecurityOptionRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205910/SecurityOptionRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_Server_2019_DC_STIG: V-205850/ServiceRule/high will be Skipped as specified by the configuration
+WARNING: Windows_Server_2019_DC_STIG: V-214936/ServiceRule/medium will be Skipped as specified by the configuration
+WARNING: Google_Chrome_Current_Windows: V-221564/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Google_Chrome_Current_Windows: V-221565/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Google_Chrome_Current_Windows: V-221585/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Google_Chrome_Current_Windows: V-221596/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped

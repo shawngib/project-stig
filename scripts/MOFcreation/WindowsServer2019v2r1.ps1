@@ -1,4 +1,4 @@
-configuration WindowsServer2019v1r5
+configuration WindowsServer2019v2r1
 {
     param()
     Import-DscResource -ModuleName PowerSTIG -ModuleVersion 4.7.1
@@ -28,6 +28,10 @@ configuration WindowsServer2019v1r5
                 }
             }
         }
+        Chrome ChromeSettings
+        {
+            StigVersion = '2.1'
+        }
     }
 }
-WindowsServer2019v1r5 -Output c:\imagebuilder
+WindowsServer2019v2r1 -Output c:\imagebuilder

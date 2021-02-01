@@ -1,33 +1,37 @@
-configuration WindowsServer2019DCv1r5
+configuration WindowsServer2019DCv2r1
 {
     param()
-    Import-DscResource -ModuleName PowerSTIG -ModuleVersion 4.5.1
+    Import-DscResource -ModuleName PowerSTIG -ModuleVersion 4.7.1
     Node localhost
     {
         WindowsServer BaseLine
         {
             OsVersion   = '2019'
             OsRole      = 'DC'
-            SkipRule    = 'V-93217', 'V-93571', 'V-93335', 'V-93429' 
-            StigVersion = '1.5'
+            SkipRule    = 'V-205850', 'V-214936', 'V-205889', 'V-205810' 
+            StigVersion = '2.1'
             Exception   = @{
-                'V-93519' = @{
+                'V-205715' = @{
                     ValueData = '1' # Required for using Azure Image Builder access to creation
                 }
-                'V-92965' = @{
+                'V-205733' = @{
                     Identity = 'Guests' 
                 }
-                'V-93009' = @{
+                'V-205672' = @{
                     Identity = 'Guests'
                 }
-                'V-93011' = @{
+                'V-205673' = @{
                     Identity = 'Guests'
                 }
-                'V-93015' = @{
+                'V-205675' = @{
                     Identity = 'Guests'
                 }
             }
         }
+        Chrome ChromeSettings
+        {
+            StigVersion = '2.1'
+        }
     }
 }
-WindowsServer2019DCv1r5  -Output c:\imagebuilder
+WindowsServer2019DCv2r1  -Output c:\imagebuilder

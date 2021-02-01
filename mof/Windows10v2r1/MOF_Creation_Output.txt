@@ -1,0 +1,17 @@
+Windows10v2r1  -Output c:\imagebuilder
+WARNING: Windows_10_STIG: V-220704/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220903.a/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220903.b/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220903.c/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220903.d/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220905.a/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220905.b/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220906/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220911/SecurityOptionRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220912/SecurityOptionRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Windows_10_STIG: V-220957/UserRightRule/medium will be Skipped as specified by the configuration
+WARNING: Windows_10_STIG: V-220972/UserRightRule/medium will be Skipped as specified by the configuration
+WARNING: Google_Chrome_Current_Windows: V-221564/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Google_Chrome_Current_Windows: V-221565/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Google_Chrome_Current_Windows: V-221585/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
+WARNING: Google_Chrome_Current_Windows: V-221596/RegistryRule/medium contains an empty Organizational Value, setting rule as Skipped
