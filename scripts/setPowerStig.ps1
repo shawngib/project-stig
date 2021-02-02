@@ -1,3 +1,24 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+$path = "c:\imageBuilder"
+$logFile = "$path\setupLog.txt"
+function LogMessage
+{
+    param([string]$message)
+    
+    ((Get-Date).ToString() + " - " + $message) >> $logFile;
+}
+LogMessage -message "Starting setPowerStig.ps1"
+
+mkdir -Path $path
+cd -Path $path
+
+LogMessage -message "**** Retrieving computer info and env variables"
+$computerInfo = Get-ComputerInfo
+$powerStigVersion = $env:POWERSTIG_VER
+$domainRole = $env:STIG_OSROLE
+$windowsInstallationType = $computerInfo.WindowsInstallationType
 $model = $env:STIG_OSVER
 $stigVersion = $env:STIG_VER
 
