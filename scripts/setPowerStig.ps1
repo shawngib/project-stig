@@ -5,7 +5,7 @@ LogMessage -message "**** Setting TLS"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
  if($windowsInstallationType -eq 'Client') 
  {
-    LogMessage -message "**** Setting execution policy for clinet type"
+    LogMessage -message "**** Setting execution policy for client type"
     Set-ExecutionPolicy Unrestricted -Force 2>>$logFile # Windows 10 only
  }
 
@@ -28,7 +28,7 @@ Set-WSManQuickConfig -Force
 Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192 # PowerSTIG DSC requires larger envelope size. 
 #Disable-PSRemoting # PowerShell remoting required so disable it.
 
-LogMessage -message "**** Running DscConfiguration Test and logging to verbose.txt"
+LogMessage -message "**** Running DscConfiguration and logging to verbose.txt"
 $null = Start-DscConfiguration -Path "c:\" -Force -Wait -Verbose 4>&1 >> c:\imagebuilder\verbose.txt
 
 LogMessage -message "**** Setting up logging to LA Workspace sender"
