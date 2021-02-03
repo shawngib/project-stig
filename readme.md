@@ -3,6 +3,7 @@
 UPDATE 2/1/2021: 
  - Some bug fixes in setPowerStig script to reflect variance between server and client.  
  - Updated to latest PowerSTIG and 4.7.1 and STIG versions 2.1
+ - Also added IE and Chrome STIGs to MOF file for example. New MOF creation scripts added to /scripts/MOFcreation folder.
 
  -------
 
