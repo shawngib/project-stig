@@ -9,10 +9,12 @@ function LogMessage
     
     ((Get-Date).ToString() + " - " + $message) >> $logFile;
 }
-LogMessage -message "Starting setPowerStig.ps1"
 
 mkdir -Path $path
 cd -Path $path
+
+LogMessage -message "Starting setPowerStig.ps1"
+Get-ExecutionPolicy -List >> $logFile
 
 LogMessage -message "**** Retrieving computer info and env variables"
 $computerInfo = Get-ComputerInfo
@@ -27,7 +29,8 @@ LogMessage -message "**** Setting TLS"
  if($windowsInstallationType -eq 'Client') 
  {
     LogMessage -message "**** Setting execution policy for client type"
-    Set-ExecutionPolicy Unrestricted -Force 2>>$logFile # Windows 10 only
+    #Set-ExecutionPolicy Unrestricted -Force 2>>$logFile # Windows 10 only
+    Get-ExecutionPolicy -List >> $logFile
  }
 
 LogMessage -message "**** Installing NuGet"

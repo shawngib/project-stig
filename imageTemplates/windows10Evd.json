@@ -84,7 +84,7 @@
             },
             {
               "type": "File",
-              "name": "SuditScriptDownload",
+              "name": "AuditScriptDownload",
               "sourceUri": "[variables('setAuditingStigUrl')]",
               "destination": "c:\\auditStig.ps1"
             },
