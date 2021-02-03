@@ -29,7 +29,8 @@ LogMessage -message "**** Setting TLS"
  if($windowsInstallationType -eq 'Client') 
  {
     LogMessage -message "**** Setting execution policy for client type"
-    #Set-ExecutionPolicy Unrestricted -Force 2>>$logFile # Windows 10 only
+    ### TODO: Potentially set to signed scripts only and sign scripts
+    Set-ExecutionPolicy Unrestricted -Force 2>>$logFile # Windows 10 only
     Get-ExecutionPolicy -List >> $logFile
  }
 
