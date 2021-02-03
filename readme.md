@@ -1,5 +1,11 @@
 # Create Custom STIG Images
 
+UPDATE 2/1/2021: 
+ - Some bug fixes in setPowerStig script to reflect variance between server and client.  
+ - Updated to latest PowerSTIG and 4.7.1 and STIG versions 2.1
+
+ -------
+
 At Microsoft, our security and compliance story is one of our greatest differentiators. Microsoft recognizes the criticality of security compliance accreditations for Defense Industrial Base (DIB) and Department of Defense (DoD) customers. Maintaining Defense Information Systems Agency (DISA) Security Technical Implementation Guides (STIGs) compliance is critical and often time consuming. Azure provides automation and compliance dashboarding capabilities at cloud speed and scale, allowing customers to shortcut the heavy costs of compliance when they choose Azure.  
 
 
@@ -36,7 +42,8 @@ Basic resources used:
 6. Azure Automation (for future use)
 7. Managed Identity
 8. Azure Workbook for Sentinel and Log Analytics
-9. PowerShell during creation and for reporting audits. *Note: This is scheduled every 20 minutes and can be modified prior to deploying in the setPowerStig.ps1 script on the second to last line.*
+9. PowerShell during creation and for reporting audits.   
+*Note: This is scheduled every 20 minutes and can be modified prior to deploying in the setPowerStig.ps1 script on the second to last line.*
 
 Resources used in the Image building and STIG process:
 
@@ -112,7 +119,16 @@ At this point you should have the needed resources to create STIG'd images. Run 
       -ApiVersion "2020-02-14" `
       -Action Run `
       -Force
+```  
+UPDATE: The above invoke command will continue to work but new PowerShell commands will expedite this. For example, the following script will get all image templates in the resource group and run Start-AzImageBuilderTemplate as a job for each.  
+
 ```
+$imageTemplates = Get-AzImageBuilderTemplate -ResourceGroupName '<Resource Group Name>'
+foreach($template in $imageTemplates){
+    Start-AzImageBuilderTemplate -ResourceGroupName '<Resource Group Name>' -Name $template.Name -AsJob
+}
+```
+
 4. Confirm images are created. In the resource group you can find the Share Image Gallery which will be named after you resource group and appened with -SIG-(6 random characters). Here you should see the 5 image definitions, by selecting one you should see the created images:
 ![](./images/winser2019image.jpg)
 
