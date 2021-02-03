@@ -1,4 +1,4 @@
-WindowsServer2019v2r1 -Output c:\imagebuilder
+WARNING: Windows_Server_2019_MS_STIG: V-205737.b/PermissionRule/medium will be Skipped as specified by the configuration
 WARNING: Windows_Server_2019_MS_STIG: V-205810/RegistryRule/medium will be Skipped as specified by the configuration
 WARNING: Windows_Server_2019_MS_STIG: V-205648.a/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped
 WARNING: Windows_Server_2019_MS_STIG: V-205648.b/RootCertificateRule/medium contains an empty Organizational Value, setting rule as Skipped

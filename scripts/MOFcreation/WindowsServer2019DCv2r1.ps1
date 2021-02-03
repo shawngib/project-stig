@@ -8,7 +8,7 @@ configuration WindowsServer2019DCv2r1
         {
             OsVersion   = '2019'
             OsRole      = 'DC'
-            SkipRule    = 'V-205850', 'V-214936', 'V-205889', 'V-205810' 
+            SkipRule    = 'V-205850', 'V-214936', 'V-205889', 'V-205810', 'V-205737.b'
             StigVersion = '2.1'
             Exception   = @{
                 'V-205715' = @{
