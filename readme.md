@@ -3,7 +3,7 @@
 UPDATE 2/1/2021: 
  - Some bug fixes in setPowerStig script to reflect variance between server and client.  
  - Updated to latest PowerSTIG and 4.7.1 and STIG versions 2.1
- - Also added IE and Chrome STIGs to MOF file for example. New MOF creation scripts added to /scripts/MOFcreation folder.
+ - Also added IE and Chrome STIGs to MOF file for example. New MOF creation scripts added to /scripts/MOFcreation folder
 
  -------
 
@@ -92,7 +92,7 @@ Register-AzResourceProvider Microsoft.Storage
 ```
 2. Deploy the solution to create the images:
 ```    
-    $url = "https://raw.githubusercontent.com/shawngib/project-stig/master/azuredeploy.json"
+    $url = "https://raw.githubusercontent.com/shawngib/project-stig/main/azuredeploy.json"
     $imageResourceGroup = "<add the resource group name to create>" 
     $deploymentName = "<Add a name of deployment>" + (Get-Random)
     New-AzSubscriptionDeployment `
@@ -148,8 +148,8 @@ Once virtual machines are deployed, they start to report in to the Log Analytics
 While there is little to do ongoing outside of monitoring and reporting updated STIGs which are quarterly can be created by simply creating a MOF file as directed by PowerSTIG documentation and a new image template uploaded using <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery">image builder</a>. 
 
 Specifically, when new STIG's are released or updated, you'll need do three things. 
-- First create a MOF file which will be used by desired state configuration (DSC), one used for WS 2019 can be found <a href="https://github.com/shawngib/project-stig/blob/master/scripts/MOFcreation/WindowsServer2019v1r5.ps1">here</a>. It is a <a href="https://github.com/microsoft/PowerStig">PowerStig</a> DSC configuration script. Note: Pay close attention to naming convention of the configuration file since it will be the name of the output MOF file.
-- create a new <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json?toc=/azure/virtual-machines/windows/toc.json&bc=/azure/virtual-machines/windows/breadcrumb/toc.json">image definition template</a>. An example can be found <a href="https://github.com/shawngib/project-stig/blob/master/imageTemplates/windows2019.json">here</a>. Note: the example template is designed to operate as a nested template for the solution but can be adapted to run separately with some modifications.
+- First create a MOF file which will be used by desired state configuration (DSC), one used for WS 2019 can be found <a href="https://github.com/shawngib/project-stig/blob/main/scripts/MOFcreation/WindowsServer2019v1r5.ps1">here</a>. It is a <a href="https://github.com/microsoft/PowerStig">PowerStig</a> DSC configuration script. Note: Pay close attention to naming convention of the configuration file since it will be the name of the output MOF file.
+- create a new <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json?toc=/azure/virtual-machines/windows/toc.json&bc=/azure/virtual-machines/windows/breadcrumb/toc.json">image definition template</a>. An example can be found <a href="https://github.com/shawngib/project-stig/blob/main/imageTemplates/windows2019.json">here</a>. Note: the example template is designed to operate as a nested template for the solution but can be adapted to run separately with some modifications.
 
 
 Sample PowerShell to upload the new image definition:
