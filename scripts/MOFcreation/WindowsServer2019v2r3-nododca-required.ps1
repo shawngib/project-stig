@@ -1,4 +1,4 @@
-configuration WindowsServer2019v2r1
+configuration WindowsServer2019v12r3
 {
     param()
     Import-DscResource -ModuleName PowerSTIG -ModuleVersion 4.11.0
@@ -38,4 +38,4 @@ configuration WindowsServer2019v2r1
         }
     }
 }
-WindowsServer2019v2r1 -Output c:\imagebuilder
+WindowsServer2019v12r3 -Output c:\imagebuilder
