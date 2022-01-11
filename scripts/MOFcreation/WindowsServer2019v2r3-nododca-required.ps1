@@ -31,7 +31,7 @@ configuration WindowsServer2019v12r3
 
         Chrome ChromeSettings
         {
-            StigVersion = '2.3'
+            StigVersion = '2.4'
         }
     }
 }
