@@ -28,10 +28,7 @@ configuration WindowsServer2019v12r3
                 }
             }
         }
-        InternetExplorer InternetExplorerSettings
-        {
-            StigVersion = '2.3'
-        }
+
         Chrome ChromeSettings
         {
             StigVersion = '2.3'
