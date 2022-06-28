@@ -24,7 +24,7 @@
             "name": "[variables('workspaceName')]",
             "type": "Microsoft.OperationalInsights/workspaces",
             "apiVersion": "2015-11-01-preview",
-            "location": "eastus",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "sku": {
                     "name": "Free"
@@ -38,7 +38,7 @@
             "name": "[variables('automationAccountName')]",
             "type": "Microsoft.Automation/automationAccounts",
             "apiVersion": "2015-10-31",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "tags": {
             },
             "properties": {
