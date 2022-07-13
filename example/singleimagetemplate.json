@@ -1,0 +1,89 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+    "rgName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the resourceGroup to create"
+      }
+    },
+    "rgLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "Location for the resourceGroup"
+      }
+    },
+    "powerStigVersion": {
+        "type": "string",
+        "metadata": {
+            "description": "Version of PowerSTIG to use. Previous default was 4.7.1"
+        },
+        "defaultValue": "4.13.1"
+    },
+    "galleryName": {
+        "type": "string",
+        "metadata": {
+            "description": "Name of the gallery to use."
+        }
+    },
+    "workspaceName": {
+        "type": "string",
+        "metadata": {
+            "description": "Name of the log ananlytics workspace to use."
+        }
+    }
+},
+    "functions": [],
+    "variables": {
+        "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
+        "srv2019MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/WindowsServer2019v2r4/localhost.mof')]"
+    },
+    "resources": [
+        {
+            "name": "windows2019STIGtemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('srv2019imageTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "identityId":{
+                        "value": "[reference('managedIdentityDeploy').outputs.identityName.value]"
+                    },
+                    "mofUrl":{
+                        "value": "[variables('srv2019MofUrl')]"
+                    },
+                    "galleryName":{
+                        "value": "[parameters('galleryName')]"
+                    },
+                    "workspaceName": {
+                        "value": "[parameters('workspaceName')]"
+                    },
+                     "imageTemplateName":  {
+                         "value" :"Win2019_STIG"
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
+                     },
+                    "stigVersion" : {
+                        "value": "2.4"
+                    },
+                    "osVersion" : {
+                        "value": "2019"
+                    }, 
+                    "osRole": {
+                        "value": "MS"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
