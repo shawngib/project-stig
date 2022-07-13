@@ -29,7 +29,7 @@
         }
     },
     "variables": {
-      "customizescriptpath": "https://raw.githubusercontent.com/shawngib/project-stig/linux-test/scripts/redhatstig.sh",
+      "customizescriptpath": "https://raw.githubusercontent.com/shawngib/project-stig/main/scripts/redhatstig.sh",
       "wsResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
     },
     "resources": [
