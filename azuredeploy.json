@@ -230,7 +230,7 @@
                          "value": "[parameters('powerStigVersion')]"
                      },
                     "stigVersion" : {
-                        "value": "2.1"
+                        "value": "2.4"
                     },
                     "osVersion" : {
                         "value": "2019"
