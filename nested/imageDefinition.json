@@ -68,7 +68,7 @@
                 },
                 {
                     "imageDefinitionName": "Redhat8_STIG",
-                    "osType": "REDHAT",
+                    "osType": "Linux",
                     "osState": "Generalized",
                     "publisher": "Redhat",
                     "offer": "RHEL",
