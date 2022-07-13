@@ -27,7 +27,7 @@
             "location": "eastus",
             "properties": {
                 "sku": {
-                    "name": "Free"
+                    "name": "PerGB2018"
                 },
                 "features": {
                     "searchVersion": 1
