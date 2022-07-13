@@ -65,6 +65,18 @@
                     "maxRecommendedvCPUs": "8",
                     "minRecommendedMemory": "32",
                     "maxRecommendedMemory": "48"
+                },
+                {
+                    "imageDefinitionName": "Redhat8_STIG",
+                    "osType": "REDHAT",
+                    "osState": "Generalized",
+                    "publisher": "Redhat",
+                    "offer": "RHEL",
+                    "sku": "8-RedHat-Stig",
+                    "minRecommendedvCPUs": "2",
+                    "maxRecommendedvCPUs": "8",
+                    "minRecommendedMemory": "32",
+                    "maxRecommendedMemory": "48"
                 }
             ]
         },
