@@ -412,9 +412,6 @@
                     },
                     "osVersion" : {
                         "value": "2016"
-                    }, 
-                    "osRole": {
-                        "value": "MS"
                     }
                 }
             }
