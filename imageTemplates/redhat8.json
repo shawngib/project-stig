@@ -89,7 +89,7 @@
                     "type": "PlatformImage",
                     "publisher": "RedHat",
                     "offer": "RHEL",
-                    "sku": "8-gen2",
+                    "sku": "8",
                     "version": "latest"
                 }, 
                 "customize": [
