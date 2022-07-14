@@ -31,6 +31,7 @@
         "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
         "srv2016imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2016.json')]",
         "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
+        "rhel7imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/redhat7.json')]",
         "rhel8imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/redhat8.json')]",
         "imageDefinitionUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageDefinition.json')]",
         "win10MofUrl": "[uri(deployment().properties.templateLink.uri, 'mof/Windows10v2r1/localhost.mof')]",
@@ -411,7 +412,46 @@
                         "value": "2.1"
                     },
                     "osVersion" : {
-                        "value": "2016"
+                        "value": "8"
+                    }
+                }
+            }
+        },
+        {
+            "name": "redhatlinux7STIGtemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "imageDefinitionsDeploy"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('rhel7imageTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "identityId":{
+                        "value": "[reference('managedIdentityDeploy').outputs.identityName.value]"
+                    },
+                    "galleryName":{
+                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    },
+                    "workspaceName": {
+                        "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
+                    },
+                     "imageTemplateName":  {
+                         "value" :"RHEL7_STIG"
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
+                     },
+                    "stigVersion" : {
+                        "value": "2.1"
+                    },
+                    "osVersion" : {
+                        "value": "7"
                     }
                 }
             }
