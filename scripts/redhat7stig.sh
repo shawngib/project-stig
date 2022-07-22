@@ -104,3 +104,4 @@ fi
 # system reboot
 echo "Rebooting to apply STIG settings..."
 touch ./azAutomationComplete
+exit 0

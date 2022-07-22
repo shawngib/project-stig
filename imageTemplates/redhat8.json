@@ -120,6 +120,10 @@
                         "eastus2",
                         "southcentralus"
                     ]
+                    },
+                    {
+                    "type": "VHD",
+                    "runOutputName": "Redhat8_STIG_V2R1"
                     }
                 ] 
             } 
