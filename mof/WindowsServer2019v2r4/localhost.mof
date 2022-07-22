@@ -2394,12 +2394,12 @@ ResourceID = "[RegistryPolicyFile][V-205714][medium][SRG-OS-000134-GPOS-00068]::
 };
 instance of MSFT_RegistryPolicyFile as $MSFT_RegistryPolicyFile21ref
 {
-ResourceID = "[RegistryPolicyFile][V-205715][medium][SRG-OS-000134-GPOS-00068]::[WindowsServer]STIG_WindowsServer";
+ResourceID = "[RegistryPolicyFile][V-205715][medium][Exception][SRG-OS-000134-GPOS-00068]::[WindowsServer]STIG_WindowsServer";
  ValueName = "LocalAccountTokenFilterPolicy";
  Ensure = "Present";
  Key = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
  ValueData = {
-    "0"
+    "1"
 };
  SourceInfo = "C:\\Program Files\\WindowsPowerShell\\Modules\\PowerSTIG\\4.13.1\\DSCResources\\Resources\\windows.Registry.ps1::40::13::RegistryPolicyFile";
  ValueType = "Dword";

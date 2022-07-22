@@ -136,6 +136,9 @@ configuration WindowsServer2019v2r4
                     'V-205672' = @{Identity = 'Guests'}
                     'V-205673' = @{Identity = 'Guests'}
                     'V-205675' = @{Identity = 'Guests'}
+                    'V-205715' = @{
+                        ValueData = '1' # Required for using Azure Image Builder access to creation
+                    }
                 }
                 $orgSettings = @{
                     'V-205910' = @{OptionValue = 'xGuest'}
