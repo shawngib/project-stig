@@ -6,18 +6,18 @@
         "type": "array",
         "defaultValue":
             [
-                {
-                    "imageDefinitionName": "Win10WVDw365_STIG",
-                    "osType": "Windows",
-                    "osState": "Generalized",
-                    "publisher": "AzureGlobalDesktop",
-                    "offer": "office-365",
-                    "sku": "20h1-evd-o365pp-stig",
-                    "minRecommendedvCPUs": "2",
-                    "maxRecommendedvCPUs": "8",
-                    "minRecommendedMemory": "32",
-                    "maxRecommendedMemory": "48"
-                },
+                // {
+                //     "imageDefinitionName": "Win10WVDw365_STIG",
+                //     "osType": "Windows",
+                //     "osState": "Generalized",
+                //     "publisher": "AzureGlobalDesktop",
+                //     "offer": "office-365",
+                //     "sku": "20h1-evd-o365pp-stig",
+                //     "minRecommendedvCPUs": "2",
+                //     "maxRecommendedvCPUs": "8",
+                //     "minRecommendedMemory": "32",
+                //     "maxRecommendedMemory": "48"
+                // },
                 {
                     "imageDefinitionName": "Win2019_STIG",
                     "osType": "Windows",
@@ -41,43 +41,44 @@
                     "maxRecommendedvCPUs": "8",
                     "minRecommendedMemory": "32",
                     "maxRecommendedMemory": "48"
-                },
-                {
-                    "imageDefinitionName": "Win2016_STIG",
-                    "osType": "Windows",
-                    "osState": "Generalized",
-                    "publisher": "MicrosoftWindowsServer",
-                    "offer": "WindowsServer",
-                    "sku": "2016-Datacenter-Stig",
-                    "minRecommendedvCPUs": "2",
-                    "maxRecommendedvCPUs": "8",
-                    "minRecommendedMemory": "32",
-                    "maxRecommendedMemory": "48"
-                },
-                {
-                    "imageDefinitionName": "Win2016DC_STIG",
-                    "osType": "Windows",
-                    "osState": "Generalized",
-                    "publisher": "MicrosoftWindowsServer",
-                    "offer": "WindowsServer",
-                    "sku": "2016-Datacenter-DC-Stig",
-                    "minRecommendedvCPUs": "2",
-                    "maxRecommendedvCPUs": "8",
-                    "minRecommendedMemory": "32",
-                    "maxRecommendedMemory": "48"
-                },
-                {
-                    "imageDefinitionName": "Redhat8_STIG",
-                    "osType": "Linux",
-                    "osState": "Generalized",
-                    "publisher": "Redhat",
-                    "offer": "RHEL",
-                    "sku": "8-RedHat-Stig",
-                    "minRecommendedvCPUs": "2",
-                    "maxRecommendedvCPUs": "8",
-                    "minRecommendedMemory": "32",
-                    "maxRecommendedMemory": "48"
                 }
+                // },
+                // {
+                //     "imageDefinitionName": "Win2016_STIG",
+                //     "osType": "Windows",
+                //     "osState": "Generalized",
+                //     "publisher": "MicrosoftWindowsServer",
+                //     "offer": "WindowsServer",
+                //     "sku": "2016-Datacenter-Stig",
+                //     "minRecommendedvCPUs": "2",
+                //     "maxRecommendedvCPUs": "8",
+                //     "minRecommendedMemory": "32",
+                //     "maxRecommendedMemory": "48"
+                // },
+                // {
+                //     "imageDefinitionName": "Win2016DC_STIG",
+                //     "osType": "Windows",
+                //     "osState": "Generalized",
+                //     "publisher": "MicrosoftWindowsServer",
+                //     "offer": "WindowsServer",
+                //     "sku": "2016-Datacenter-DC-Stig",
+                //     "minRecommendedvCPUs": "2",
+                //     "maxRecommendedvCPUs": "8",
+                //     "minRecommendedMemory": "32",
+                //     "maxRecommendedMemory": "48"
+                // },
+                // {
+                //     "imageDefinitionName": "Redhat8_STIG",
+                //     "osType": "Linux",
+                //     "osState": "Generalized",
+                //     "publisher": "Redhat",
+                //     "offer": "RHEL",
+                //     "sku": "8-RedHat-Stig",
+                //     "minRecommendedvCPUs": "2",
+                //     "maxRecommendedvCPUs": "8",
+                //     "minRecommendedMemory": "32",
+                //     "maxRecommendedMemory": "48"
+                // }
             ]
         },
         "galleryName": {
@@ -118,7 +119,7 @@
                         "max": "[parameters('definitions')[copyIndex()].maxRecommendedMemory]"
                     }
                 },
-                "hyperVGeneration": "[parameters('hyperVGeneration')]"
+                "hyperVGeneration": "V2"
             },
             "tags": {}
         }
