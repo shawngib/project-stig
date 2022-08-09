@@ -66,7 +66,7 @@
             "type": "PlatformImage",
             "publisher": "MicrosoftWindowsServer",
             "offer": "WindowsServer",
-            "sku": "2019-Datacenter",
+            "sku": "2019-datacenter-smalldisk-g2",
             "version": "latest"
           },
           "customize": [
@@ -120,7 +120,7 @@
           "distribute": [
             {
               "type": "SharedImage",
-              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/',parameters('imageTemplateName'),'/versions/',parameters('stigVersion'),'.0')]",
+              "galleryImageId": "[concat(resourceGroup().id,'/providers/Microsoft.Compute/galleries/',parameters('galleryName'),'/images/',parameters('imageTemplateName'),'/versions/',parameters('stigVersion'),'.1')]",
               "runOutputName": "[parameters('imageTemplateName')]",
               "artifactTags": {
                 "source": "azureVmImageBuilder",
@@ -134,7 +134,7 @@
             },
             {
               "type": "VHD",
-              "runOutputName": "Win2019_STIG_V2R4"
+              "runOutputName": "Win2019gen2_STIG_V2R4"
             }
           ]
         }
