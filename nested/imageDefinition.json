@@ -85,7 +85,7 @@
         },
         "hyperVGeneration": {
             "type": "string",
-            "defaultValue": "V1"
+            "defaultValue": "V2"
         }
     },
     "variables": {},
