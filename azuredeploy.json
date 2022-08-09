@@ -156,7 +156,7 @@
                 }
             }
         },
-        {
+/*         {
             "name": "windows10STIGtemplate",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -197,7 +197,7 @@
                     }
                 }
             }
-        },
+        }, */
         {
             "name": "windows2019STIGtemplate",
             "type": "Microsoft.Resources/deployments",
@@ -242,7 +242,7 @@
                     }
                 }
             }
-        },
+        }/* ,
         {
             "name": "windows2019DCSTIGtemplate",
             "type": "Microsoft.Resources/deployments",
@@ -455,7 +455,7 @@
                     }
                 }
             }
-        }
+        } */
     ],
     "outputs": {}
 }
