@@ -60,7 +60,7 @@
           "buildTimeoutInMinutes": 100,
           "vmProfile": {
             "vmSize": "Standard_D8_v5",
-            "osDiskSizeGB": 120
+            "osDiskSizeGB": 127
           },
           "source": {
             "type": "PlatformImage",
