@@ -60,7 +60,7 @@ LogMessage -message "**** Setting up logging to LA Workspace sender"
 
 LogMessage -message "**** Starting download and install of EDGE and SCAP tooling."
 
-$localDownloadPath = join-path $env:temp download
+$localDownloadPath = join-path $path download
 if(!(Test-Path -Path $localDownloadPath)) 
 { 
      md -Path $localDownloadPath -ErrorAction SilentlyContinue | Out-Null
