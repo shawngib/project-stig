@@ -66,7 +66,7 @@
             "type": "PlatformImage",
             "publisher": "MicrosoftWindowsServer",
             "offer": "WindowsServer",
-            "sku": "2019-datacenter-g2",
+            "sku": "2019-datacenter-gensecond",
             "version": "latest"
           },
           "customize": [
