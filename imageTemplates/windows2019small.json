@@ -60,13 +60,13 @@
           "buildTimeoutInMinutes": 100,
           "vmProfile": {
             "vmSize": "Standard_D8_v5",
-            "osDiskSizeGB": 120
+            "osDiskSizeGB": 30
           },
           "source": {
             "type": "PlatformImage",
             "publisher": "MicrosoftWindowsServer",
             "offer": "WindowsServer",
-            "sku": "2019-datacenter-g2",
+            "sku": "2019-datacenter-smalldisk-g2",
             "version": "latest"
           },
           "customize": [
@@ -140,7 +140,7 @@
             },
             {
               "type": "VHD",
-              "runOutputName": "Win2019gen2_STIG_V2R4"
+              "runOutputName": "Win2019gen2_small_STIG_V2R4"
             }
           ]
         }

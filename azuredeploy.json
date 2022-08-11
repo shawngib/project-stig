@@ -31,6 +31,7 @@
         "win10mageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows10Evd.json')]",
         "srv2016imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2016.json')]",
         "srv2019imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019.json')]",
+        "srv2019smallimageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/windows2019small.json')]",
         "rhel7imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/redhat7.json')]",
         "rhel8imageTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'imageTemplates/redhat8.json')]",
         "imageDefinitionUrl": "[uri(deployment().properties.templateLink.uri, 'nested/imageDefinition.json')]",
@@ -198,6 +199,51 @@
                 }
             }
         }, */
+        {
+            "name": "windows2019smallSTIGtemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "imageDefinitionsDeploy"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('srv2019smallimageTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "identityId":{
+                        "value": "[reference('managedIdentityDeploy').outputs.identityName.value]"
+                    },
+                    "mofUrl":{
+                        "value": "[variables('srv2019MofUrl')]"
+                    },
+                    "galleryName":{
+                        "value": "[reference('imageGalleryDeploy').outputs.galleryName.value]"
+                    },
+                    "workspaceName": {
+                        "value": "[reference('workspaceDeploy').outputs.workspaceName.value]"
+                    },
+                     "imageTemplateName":  {
+                         "value" :"Win2019_STIG_Small"
+                     },
+                     "powerStigVersion": {
+                         "value": "[parameters('powerStigVersion')]"
+                     },
+                    "stigVersion" : {
+                        "value": "2.4"
+                    },
+                    "osVersion" : {
+                        "value": "2019"
+                    }, 
+                    "osRole": {
+                        "value": "MS"
+                    }
+                }
+            }
+        },
         {
             "name": "windows2019STIGtemplate",
             "type": "Microsoft.Resources/deployments",
