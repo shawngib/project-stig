@@ -74,7 +74,7 @@ $edgeFilePath = join-path $localDownloadPath MicrosoftEdgeEnterpriseX64.msi
 
 Invoke-RestMethod -Uri $edgeDownloadUrl -OutFile $edgeFilePath 
 
-Start-Process -FilePath $edgeFilePath -ArgumentList "/quiet"
+Start-Process -Wait -FilePath $edgeFilePath -ArgumentList "/quiet"
 
 # Download, unzip and install SCAP
 
@@ -90,6 +90,6 @@ Expand-Archive -LiteralPath $scapFilePath -DestinationPath $localDownloadPath
 
 $sccPath = Join-Path $localDownloadPath scc-5.5_Windows\SCC_5.5_Windows_Setup.exe
 
-Start-Process -FilePath $sccPath -ArgumentList "/VERYSILENT /DIR=`"C:\SCC`" /TYPE=custom /COMPONENTS=`"Content\NIST_USGCB_SCAP_Content,Content\DISA_STIG_SCAP_Content,Other\SCC_Service`""
+Start-Process -Wait -FilePath $sccPath -ArgumentList "/VERYSILENT /DIR=`"C:\SCC`" /TYPE=custom /COMPONENTS=`"Content\NIST_USGCB_SCAP_Content,Content\DISA_STIG_SCAP_Content,Other\SCC_Service`""
 
 Remove-Item -Path $localDownloadPath -Confirm:$false -Force -Recurse
