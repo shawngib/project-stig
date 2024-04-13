@@ -1,3 +1,4 @@
+[![Board Status](https://shawnstestdevops.visualstudio.com/fbaec535-ce2b-404c-b23e-62b303dfb0b8/7e54e29c-a555-4e0d-b74c-19912e166813/_apis/work/boardbadge/22bed44c-8a36-4a18-b136-54d64bbca89f)](https://shawnstestdevops.visualstudio.com/fbaec535-ce2b-404c-b23e-62b303dfb0b8/_boards/board/t/7e54e29c-a555-4e0d-b74c-19912e166813/Microsoft.RequirementCategory)
 # Create Custom STIG Images
 
 UPDATE 2/1/2021: 
